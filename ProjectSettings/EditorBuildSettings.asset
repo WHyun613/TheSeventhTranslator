@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: "Assets/\u573A\u666F/\u7B2C\u4E00\u5929/1 \u521D\u59CB\u9875\u9762/\u521D\u59CB\u9875\u9762.unity"
+    guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: "Assets/\u573A\u666F/\u7B2C\u4E00\u5929/2 \u5C0F\u9547\u5916\uFF08\u8DEF\u724C\u5904\uFF09/\u5C0F\u9547\u5916\uFF08\u8DEF\u724C\u5904\uFF09.unity"
+    guid: 6d4e47ee717deeb44aa4d0cc3844a554
+  - enabled: 1
+    path: "Assets/\u573A\u666F/\u7B2C\u4E00\u5929/3 \u5C0F\u9547\uFF08\u8857\u9053\uFF09/3
+      \u5C0F\u9547\uFF08\u8857\u9053\uFF09.unity"
+    guid: 6ebcc3f874033db4d8b962009e7e4c35
+  - enabled: 1
+    path: "Assets/\u573A\u666F/4 \u8BD1\u8005\u623F\u95F4/\u7B2C\u4E00\u5929\u8BD1\u8005\u623F\u95F4.unity"
+    guid: 42fcca1a7c60369468000c7a57a918ec
+  - enabled: 1
+    path: "Assets/\u573A\u666F/\u7B2C\u4E00\u5929/\u6D4B\u8BD5\u7528\u62BD\u5C49.unity"
+    guid: f056835bb2bf08242ada492bd1490a9a
+  - enabled: 1
+    path: "Assets/\u573A\u666F/\u7B2C\u4E00\u5929/\u8BD1\u8005\u63A8\u7406\u53F0.unity"
+    guid: bf1ac81c6d6fbe849b7a66b09b00404f
+  - enabled: 1
+    path: "Assets/\u573A\u666F/\u7B2C\u4E00\u5929/\u8BD1\u8005\u684C.unity"
+    guid: 1a2e1847da3dd1f4186c65aa35519ed9
+  - enabled: 1
+    path: "Assets/\u573A\u666F/\u7B2C\u4E8C\u5929/\u8BD1\u8005\u623F\u95F4/\u7B2C\u4E8C\u5929\u8BD1\u8005\u623F\u95F4.unity"
+    guid: ef8b2777e7bfa8344b800060d59d1db9
+  - enabled: 1
+    path: "Assets/\u573A\u666F/\u7B2C\u4E8C\u5929/\u5C0F\u9547\uFF08\u8857\u9053\uFF09/\u7B2C\u4E8C\u5929\u5C0F\u9547\uFF08\u8857\u9053\uFF09.unity"
+    guid: b318c833b9cd11c498e45972a7fbe84f
+  - enabled: 1
+    path: "Assets/\u573A\u666F/\u7B2C\u4E8C\u5929/\u7B2C\u4E8C\u5929\u5C0F\u6811\u6797/\u5C0F\u6811\u6797.unity"
+    guid: a405c8ef475fa0349a521fe8d1ca4a06
+  - enabled: 1
+    path: "Assets/\u573A\u666F/\u7B2C\u4E8C\u5929/\u7B2C\u4E8C\u5929\u6863\u6848\u5BA4/\u6863\u6848\u5BA4\u95E8\u53E3.unity"
+    guid: 433446706e4b4464f954a746afda61dd
+  - enabled: 1
+    path: "Assets/\u573A\u666F/\u7B2C\u4E8C\u5929/\u7B2C\u4E8C\u5929\u6863\u6848\u5BA4/\u6863\u6848\u5BA4\u5185\u90E8.unity"
+    guid: 8fa568dcbc642ae499ae90345c7d01d0
+  m_configObjects: {}
