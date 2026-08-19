@@ -14,6 +14,10 @@
 script = ExtResource("1_catalog")
 entries = Dictionary[StringName, Resource]({
 &"amb_translator_room": null,
+&"anim_dictionary_01_to_02": null,
+&"anim_dictionary_02_to_01": null,
+&"anim_dictionary_02_to_03": null,
+&"anim_dictionary_03_to_02": null,
 &"bg_day01_town_outskirts": ExtResource("1_25gjx"),
 &"bg_day02_archive_entrance": null,
 &"bg_day02_archive_interior": null,
@@ -35,6 +39,8 @@ entries = Dictionary[StringName, Resource]({
 &"doc_day02_case_hint": null,
 &"doc_day02_elder_photo": null,
 &"doc_dictionary_hand_unlocked": null,
+&"doc_dictionary_timeline_02": null,
+&"doc_dictionary_timeline_03": null,
 &"doc_official_dictionary_v4": ExtResource("5_fvn6m"),
 &"doc_player_objective": null,
 &"font_body_zh": ExtResource("2_font"),
@@ -72,6 +78,8 @@ entries = Dictionary[StringName, Resource]({
 &"stamp_unknown": null,
 &"ui_day_summary": null,
 &"ui_dialogue": null,
+&"ui_dictionary_time_marker": null,
+&"ui_dictionary_time_track": null,
 &"ui_inventory": null,
 &"ui_reasoning_board": null,
 &"ui_theme_core": null

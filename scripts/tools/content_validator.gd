@@ -26,6 +26,12 @@ static func validate_day(day: DayDefinition, catalog: AssetCatalog) -> PackedStr
 		_validate_asset_reference(String(document.get("asset_id", "")), "文档 %s" % document_id, catalog, issues)
 		for page_asset_id in document.get("page_asset_ids", []) as Array:
 			_validate_asset_reference(String(page_asset_id), "文档 %s 页面" % document_id, catalog, issues)
+		for page_asset_id in document.get("timeline_page_asset_ids", []) as Array:
+			_validate_asset_reference(String(page_asset_id), "时间轴词典 %s 页面" % document_id, catalog, issues)
+		_validate_asset_reference(String(document.get("timeline_marker_asset_id", "")), "时间轴词典 %s 标志" % document_id, catalog, issues)
+		_validate_asset_reference(String(document.get("timeline_track_asset_id", "")), "时间轴词典 %s 轨道" % document_id, catalog, issues)
+		for transition_asset_id in (document.get("timeline_transition_asset_ids", {}) as Dictionary).values():
+			_validate_asset_reference(String(transition_asset_id), "时间轴词典 %s 逐帧动画" % document_id, catalog, issues)
 	for location_id in day.locations:
 		var location := day.locations[location_id] as Dictionary
 		_validate_asset_reference(String(location.get("asset_id", "")), "地点 %s" % location_id, catalog, issues)

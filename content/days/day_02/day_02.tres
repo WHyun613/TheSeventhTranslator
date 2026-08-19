@@ -27,7 +27,7 @@ documents = {
 "day02_elder_photo":{"title":"卖盐老人照片","asset_id":"doc_day02_elder_photo","body":"Marina 带来的一张旧照片。老人站在一片玉米田旁。"},
 "conclusion_day02_hand_protects_doc":{"title":"结论 02：手掌表示守护","asset_id":"conclusion_day02_hand_protects","body":"小男孩的画与旧信相互印证：灰碑文中的【手掌】不是占有，而是守护。"},
 "conclusion_day02_border_changed_doc":{"title":"结论 03：边界发生变化","asset_id":"conclusion_day02_border_changed","body":"案卷中的现行田地照片与旧地图相互印证：边界后来向外移动，老人的土地才被纳入 Santa Lucia。"},
-"official_dictionary":{"title":"官方词典第四版","asset_id":"doc_official_dictionary_v4","body":"","page_asset_ids":["doc_official_dictionary_v4","doc_dictionary_hand_unlocked"]}
+"official_dictionary":{"title":"官方词典第四版","asset_id":"doc_official_dictionary_v4","body":"","timeline_marker_asset_id":"ui_dictionary_time_marker","timeline_page_asset_ids":["doc_official_dictionary_v4","doc_dictionary_timeline_02","doc_dictionary_timeline_03"],"timeline_track_asset_id":"ui_dictionary_time_track","timeline_transition_asset_ids":{"1_to_2":"anim_dictionary_01_to_02","2_to_1":"anim_dictionary_02_to_01","2_to_3":"anim_dictionary_02_to_03","3_to_2":"anim_dictionary_03_to_02"}}
 }
 items = {
 "item_day02_field_photo":{"name":"案卷中的田地照片","asset_id":"item_day02_field_photo","document_id":"day02_field_photo","reasoning":true,"tooltip":"标有现行土地边界的案卷附件。"},

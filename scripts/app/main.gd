@@ -3,6 +3,7 @@ extends Control
 const AssetFrameScene := preload("res://scripts/ui/asset_frame.gd")
 const DialoguePanelScene := preload("res://scripts/ui/dialogue_panel.gd")
 const DocumentViewerScene := preload("res://scripts/ui/document_viewer.gd")
+const DictionaryTimelinePanelScene := preload("res://scripts/ui/dictionary_timeline_panel.gd")
 const InventoryPanelScene := preload("res://scripts/ui/inventory_panel.gd")
 const ReasoningBoardScene := preload("res://scripts/ui/reasoning_board.gd")
 const CaseReviewPanelScene := preload("res://scripts/ui/case_review_panel.gd")
@@ -38,6 +39,7 @@ var _summary_result: RichTextLabel
 
 var _dialogue: DialoguePanel
 var _document_viewer: DocumentViewer
+var _dictionary_timeline: DictionaryTimelinePanel
 var _inventory: InventoryPanel
 var _reasoning: ReasoningBoard
 var _case_review: CaseReviewPanel
@@ -361,6 +363,10 @@ func _build_centered_screen(title_text: String) -> Control:
 
 
 func _build_overlays() -> void:
+	_dictionary_timeline = DictionaryTimelinePanelScene.new() as DictionaryTimelinePanel
+	_dictionary_timeline.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_dictionary_timeline.closed.connect(_on_dictionary_timeline_closed)
+	add_child(_dictionary_timeline)
 	_document_viewer = DocumentViewerScene.new() as DocumentViewer
 	_document_viewer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_document_viewer.closed.connect(_on_document_closed)
@@ -652,7 +658,16 @@ func _start_onboarding() -> void:
 
 
 func _open_dictionary() -> void:
-	_open_document("official_dictionary")
+	var document := content.document("official_dictionary")
+	if document.is_empty():
+		_toast("未找到官方词典配置。")
+		return
+	_dictionary_timeline.open_dictionary(
+		document,
+		content.ASSET_CATALOG,
+		int(state.data.get("dictionary_unlocked_stage", 1)),
+		int(state.data.get("dictionary_current_page", 0))
+	)
 
 
 func _open_objective() -> void:
@@ -679,6 +694,9 @@ func _on_inventory_item_requested(item_id: String) -> void:
 
 
 func _open_document(document_id: String) -> void:
+	if document_id == "official_dictionary":
+		_open_dictionary()
+		return
 	var document := content.document(document_id)
 	if document.is_empty():
 		_toast("未找到文档：%s" % document_id)
@@ -686,8 +704,6 @@ func _open_document(document_id: String) -> void:
 	var asset_id := String(document.get("asset_id", ""))
 	if document.has("page_asset_ids"):
 		var page_asset_ids := (document.get("page_asset_ids", []) as Array).duplicate()
-		if document_id == "official_dictionary" and not state.has_conclusion("conclusion_day02_hand_protects") and page_asset_ids.size() > 1:
-			page_asset_ids.resize(1)
 		_document_viewer.open_image_document(
 			document_id,
 			String(document.get("title", document_id)),
@@ -738,6 +754,23 @@ func _on_document_closed(document_id: String) -> void:
 	elif document_id == "old_text" and _drawer_document_chain:
 		_drawer_document_chain = false
 		_open_document("marina_note")
+
+
+func _on_dictionary_timeline_closed(current_page: int) -> void:
+	state.data["dictionary_current_page"] = current_page
+	_auto_save()
+	_on_document_closed("official_dictionary")
+
+
+# 剧情任务统一调用这个接口。D3 已知任务与未来未定任务不应直接操作词典 UI。
+func unlock_dictionary_stage(stage: int) -> void:
+	var previous := int(state.data.get("dictionary_unlocked_stage", 1))
+	var next_stage := clampi(maxi(previous, stage), 1, 3)
+	if next_stage == previous:
+		return
+	state.data["dictionary_unlocked_stage"] = next_stage
+	_auto_save()
+	_toast("官方词典的时间标志解锁了新的刻度。")
 
 
 func _start_case_intro() -> void:

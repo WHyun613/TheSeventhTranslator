@@ -93,7 +93,10 @@ documents = {
 "official_dictionary": {
 "asset_id": "doc_official_dictionary_v4",
 "body": "",
-"page_asset_ids": ["doc_official_dictionary_v4"],
+"timeline_marker_asset_id": "ui_dictionary_time_marker",
+"timeline_page_asset_ids": ["doc_official_dictionary_v4", "doc_dictionary_timeline_02", "doc_dictionary_timeline_03"],
+"timeline_track_asset_id": "ui_dictionary_time_track",
+"timeline_transition_asset_ids": {"1_to_2":"anim_dictionary_01_to_02", "2_to_1":"anim_dictionary_02_to_01", "2_to_3":"anim_dictionary_02_to_03", "3_to_2":"anim_dictionary_03_to_02"},
 "title": "官方词典第四版"
 },
 "old_text": {

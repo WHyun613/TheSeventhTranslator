@@ -24,6 +24,8 @@ func reset() -> void:
 		"case_verdict": "",
 		"case_records": {},
 		"day_results": {},
+		"dictionary_unlocked_stage": 1,
+		"dictionary_current_page": 0,
 		"play_seconds": 0.0,
 	}
 
