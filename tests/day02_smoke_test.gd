@@ -34,9 +34,10 @@ func _run() -> void:
 	await process_frame
 	await process_frame
 
-	main.state.reset()
-	main.state.add_item("item_official_dictionary_v4")
-	main._show_day_two()
+	# DEV DAY 2 SHORTCUT START — 删除测试入口时，将下一行改回 main._show_day_two() 即可。
+	_check(main._settings._debug_day2_button != null, "设置面板缺少直接进入 D2 的测试按钮。")
+	main._debug_start_day_two()
+	# DEV DAY 2 SHORTCUT END
 	_check(ContentValidator.validate_day(main.content.current_day, main.content.ASSET_CATALOG).is_empty(), "Day 2 内容静态校验未通过。")
 	_check(String(main.state.data["current_day"]) == "day_02", "没有切换到 Day 2 内容包。")
 	_check(String(main.state.data["current_location"]) == "translator_desk", "Day 2 没有从译者桌开始。")

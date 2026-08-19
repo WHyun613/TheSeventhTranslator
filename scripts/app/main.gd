@@ -382,6 +382,9 @@ func _build_overlays() -> void:
 	_settings = SettingsPanelScene.new() as SettingsPanel
 	_settings.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_settings.settings_applied.connect(_on_settings_applied)
+	# DEV DAY 2 SHORTCUT START — 删除此连接及底部同名处理函数即可移除测试入口。
+	_settings.debug_day2_requested.connect(_debug_start_day_two)
+	# DEV DAY 2 SHORTCUT END
 	add_child(_settings)
 	_dialogue_blocker = ColorRect.new()
 	_dialogue_blocker.color = Color(0.01, 0.01, 0.01, 0.38)
@@ -1103,6 +1106,16 @@ func _on_settings_applied(new_settings: Dictionary) -> void:
 		settings_service.data[key] = new_settings[key]
 	settings_service.save_settings()
 	_toast("设置已保存。")
+
+
+# DEV DAY 2 SHORTCUT START — 独立测试入口，不参与正式日程推进。
+func _debug_start_day_two() -> void:
+	state.reset()
+	state.set_flag("day01_complete")
+	state.add_item("item_official_dictionary_v4")
+	state.add_item("item_player_objective")
+	_show_day_two()
+# DEV DAY 2 SHORTCUT END
 
 
 func _return_to_menu() -> void:
