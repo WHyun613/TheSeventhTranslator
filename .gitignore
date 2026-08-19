@@ -1,0 +1,15 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+/.test_userdata/
+/tests/artifacts/
+/build/
+
+# Local-only planning document requested to stay out of GitHub
+/DAY2_PLAN_AND_ARCHITECTURE.md
+
+# Editor and operating-system metadata
+/.vscode/
+/.idea/
+.DS_Store
+Thumbs.db

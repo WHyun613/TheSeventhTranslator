@@ -1,0 +1,191 @@
+[gd_resource type="Resource" script_class="DayDefinition" format=3 uid="uid://b4y82070ts71u"]
+
+[ext_resource type="Script" uid="uid://curfm688oc0qc" path="res://scripts/data/day_definition.gd" id="1_day"]
+
+[resource]
+script = ExtResource("1_day")
+dialogues = {
+"coachman_intro": [{
+"expression": "neutral",
+"speaker": "玩家",
+"text": "这里以前是玉米地？"
+}, {
+"expression": "neutral",
+"speaker": "马车夫",
+"text": "现在也是。"
+}, {
+"expression": "neutral",
+"speaker": "玩家",
+"text": "但是我没有看见玉米。"
+}, {
+"expression": "neutral",
+"speaker": "马车夫",
+"text": "玉米在检查站下面，档案馆下面，整个镇子的下面都是玉米地。"
+}, {
+"expression": "neutral",
+"speaker": "玩家",
+"text": "但我在地图上并没有看到它们。"
+}, {
+"expression": "neutral",
+"speaker": "马车夫",
+"text": "因为玉米不会说它们在这里，但它们就在这里等待。"
+}],
+"tomas_case_intro": [{
+"expression": "neutral",
+"speaker": "Tomas",
+"text": "今天这份很简单，是边界案。记住我说的话，译文审核遵照词典就好，别给自己添加工作量。"
+}],
+"tomas_onboarding": [{
+"expression": "neutral",
+"speaker": "Tomas",
+"text": "尊敬的新译者，您好。由于您出色的灰碑文语言能力和沟通能力，恭喜您成为 Santa Lucia 的第七位译者。"
+}, {
+"expression": "neutral",
+"speaker": "Tomas",
+"text": "您的职责是核对这些原住民文字和审判理由的对应度。具体翻译请参考这本《灰碑文标准辞典》。"
+}, {
+"expression": "neutral",
+"speaker": "Tomas",
+"text": "记住，要照词典翻译，不要解释。"
+}],
+"tomas_verdict_approve": [{
+"expression": "yawn",
+"speaker": "Tomas",
+"text": "好——非常好。你的工作就是这么简单。"
+}],
+"tomas_verdict_question": [{
+"expression": "concerned",
+"speaker": "Tomas",
+"text": "才刚来一天就开始找麻烦了？"
+}, {
+"expression": "concerned",
+"speaker": "Tomas",
+"text": "……好吧，今天你标记存疑的部分确实有点问题。我会按照流程上报你的修改和证据。"
+}]
+}
+documents = {
+"case_hint": {
+"asset_id": "doc_case_salt_elder",
+"body": "你可以找一找线索，证实译文是否准确。
+
+你也可以直接认可官方译文，但案件一旦提交便不能撤回。",
+"title": "提示"
+},
+"conclusion_no_illegal_crossing": {
+"asset_id": "ui_reasoning_board",
+"body": "[center][font_size=42]推理成立[/font_size][/center]
+
+缺口圆表示“没有”；它与案卷中的越境符号组合后，原句应理解为：
+
+[center][font_size=36]老人没有非法越境[/font_size][/center]
+
+该结论已作为证据加入物品栏。",
+"title": "结论 01"
+},
+"marina_note": {
+"asset_id": "item_day01_marina_note",
+"body": "[center][font_size=40]缺口圆不是装饰，
+它表示没有。[/font_size]
+
+—— mari[/center]",
+"title": "神秘纸条"
+},
+"official_dictionary": {
+"asset_id": "doc_official_dictionary_v4",
+"body": "",
+"page_asset_ids": ["doc_official_dictionary_v4"],
+"title": "官方词典第四版"
+},
+"old_text": {
+"asset_id": "item_day01_old_text",
+"body": "[center][font_size=88]c%[/font_size][/center]
+
+官方悬停解释：
+  c —— 无含义
+  % —— 非法离境
+
+[color=#8f6f58]占位映射：c → 缺口圆，% → 足迹。正式灰碑文字形可在 AssetCatalog 中替换。[/color]",
+"title": "旧文 1"
+},
+"player_objective": {
+"asset_id": "doc_player_objective",
+"body": "你是 Santa Lucia 的第七位译者。
+
+你的工作是审核旧文和官方译文是否一致，以辅助每五日进行一次的审判。
+
+你的印章可以标记译文通过或存疑，同时或许也能决定当事人的一部分命运。
+
+[right]—— llar[/right]",
+"title": "玩家目标"
+}
+}
+items = {
+"conclusion_day01_no_illegal_crossing": {
+"asset_id": "ui_reasoning_board",
+"document_id": "conclusion_no_illegal_crossing",
+"name": "结论：没有非法越境",
+"reasoning": false,
+"tooltip": "由旧文与神秘纸条得出的译注证据。"
+},
+"item_day01_marina_note": {
+"asset_id": "item_day01_marina_note",
+"document_id": "marina_note",
+"name": "mari 留下的纸条",
+"reasoning": true,
+"tooltip": "一张神秘的、来自前人的纸条。"
+},
+"item_day01_old_text": {
+"asset_id": "item_day01_old_text",
+"document_id": "old_text",
+"name": "旧文 1：c%",
+"reasoning": true,
+"tooltip": "c：无含义；%：非法离境。"
+},
+"item_official_dictionary_v4": {
+"asset_id": "doc_official_dictionary_v4",
+"document_id": "official_dictionary",
+"name": "官方词典第四版",
+"reasoning": false,
+"tooltip": "审查署要求译者严格参照的官方辞典。"
+},
+"item_player_objective": {
+"asset_id": "doc_player_objective",
+"document_id": "player_objective",
+"name": "玩家目标",
+"reasoning": false,
+"tooltip": "第七名译者的工作说明。"
+}
+}
+locations = {
+"town_outskirts": {
+"asset_id": "bg_day01_town_outskirts",
+"description": "马车停在 Santa Lucia 镇外。斑驳路牌旁压着一片干枯的玉米叶，远处的检查站遮住了地平线。",
+"title": "小镇外 · 路牌处"
+},
+"translator_desk": {
+"asset_id": "bg_translator_desk",
+"description": "译者的工作桌。今日案卷与官方词典摆放在桌面上。",
+"title": "译者桌"
+},
+"translator_room": {
+"asset_id": "bg_translator_room",
+"description": "第七名译者工作的房间。侧边抽屉似乎没有锁，房间中央的桌子通往日常译审工作界面。",
+"title": "译者房间"
+}
+}
+case_data = {
+"case_id": "case_salt_elder",
+"official_translation": "此人非法离境",
+"old_text": "c%",
+"person": "卖盐老人",
+"profession": "商人",
+"recommendation": "扣押，等待文字复核及审判",
+"title": "案卷：卖盐老人"
+}
+puzzle_data = {
+"recipes": [{
+"conclusion_id": "conclusion_day01_no_illegal_crossing",
+"required_clues": ["item_day01_old_text", "item_day01_marina_note"],
+"success_text": "缺口圆表示“没有”，所以 c% 并不是“非法离境”，而是“没有非法离境”。"
+}]
+}

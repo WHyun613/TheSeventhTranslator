@@ -1,0 +1,82 @@
+name: Godot CI and Source Delivery
+
+on:
+  push:
+    branches:
+      - godot-main
+  pull_request:
+    branches:
+      - godot-main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: godot-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  GODOT_TAG: 4.7.1-stable
+  GODOT_ARCHIVE: Godot_v4.7.1-stable_linux.x86_64.zip
+  GODOT_BINARY: Godot_v4.7.1-stable_linux.x86_64
+  GODOT_EXPECTED_VERSION: 4.7.1.stable.official.a13da4feb
+
+jobs:
+  validate-and-test:
+    name: Import and Day 1 smoke test
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      XDG_DATA_HOME: ${{ runner.temp }}/godot-xdg/data
+      XDG_CONFIG_HOME: ${{ runner.temp }}/godot-xdg/config
+      XDG_CACHE_HOME: ${{ runner.temp }}/godot-xdg/cache
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Install official Godot editor
+        shell: bash
+        run: |
+          set -euo pipefail
+          install_dir="${RUNNER_TEMP}/godot"
+          mkdir -p "${install_dir}" "${XDG_DATA_HOME}" "${XDG_CONFIG_HOME}" "${XDG_CACHE_HOME}"
+          curl --fail --location --retry 3 \
+            --output "${RUNNER_TEMP}/${GODOT_ARCHIVE}" \
+            "https://github.com/godotengine/godot/releases/download/${GODOT_TAG}/${GODOT_ARCHIVE}"
+          curl --fail --location --retry 3 \
+            --output "${RUNNER_TEMP}/SHA512-SUMS.txt" \
+            "https://github.com/godotengine/godot/releases/download/${GODOT_TAG}/SHA512-SUMS.txt"
+          (
+            cd "${RUNNER_TEMP}"
+            grep " ${GODOT_ARCHIVE}$" SHA512-SUMS.txt | sha512sum --check --strict -
+          )
+          unzip -q "${RUNNER_TEMP}/${GODOT_ARCHIVE}" -d "${install_dir}"
+          mv "${install_dir}/${GODOT_BINARY}" "${install_dir}/godot"
+          chmod +x "${install_dir}/godot"
+          echo "${install_dir}" >> "${GITHUB_PATH}"
+
+      - name: Show Godot version
+        shell: bash
+        run: test "$(godot --version)" = "${GODOT_EXPECTED_VERSION}"
+
+      - name: Import project and validate resources
+        run: godot --headless --path "${GITHUB_WORKSPACE}" --import
+
+      - name: Run Day 1 smoke test
+        run: godot --headless --path "${GITHUB_WORKSPACE}" --script res://tests/day01_smoke_test.gd
+
+      - name: Package verified Godot source
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: git archive --format=zip --output="${RUNNER_TEMP}/TheSeventhTranslator-Godot-source.zip" HEAD
+
+      - name: Upload verified source artifact
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v7
+        with:
+          name: TheSeventhTranslator-Godot-source-${{ github.run_number }}
+          path: ${{ runner.temp }}/TheSeventhTranslator-Godot-source.zip
+          if-no-files-found: error
+          retention-days: 14
