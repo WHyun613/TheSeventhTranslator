@@ -24,13 +24,13 @@ env:
 
 jobs:
   validate-and-test:
-    name: Import and Day 1 smoke test
+    name: Import and Day 1/2 smoke tests
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     env:
-      XDG_DATA_HOME: ${{ runner.temp }}/godot-xdg/data
-      XDG_CONFIG_HOME: ${{ runner.temp }}/godot-xdg/config
-      XDG_CACHE_HOME: ${{ runner.temp }}/godot-xdg/cache
+      XDG_DATA_HOME: /tmp/godot-xdg/data
+      XDG_CONFIG_HOME: /tmp/godot-xdg/config
+      XDG_CACHE_HOME: /tmp/godot-xdg/cache
 
     steps:
       - name: Check out repository
