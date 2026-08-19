@@ -179,10 +179,10 @@ case_data = {
 "old_text": "c%",
 "person": "卖盐老人",
 "profession": "商人",
-"recommendation": "扣押，等待文字复核及审判",
-"question_required_conclusions": ["conclusion_day01_no_illegal_crossing"],
 "question_locked_text": "存疑章尚不可用：需要先找到能支持存疑的证据。",
 "question_ready_text": "已获得证据：老人没有非法越境。可以提交存疑。",
+"question_required_conclusions": ["conclusion_day01_no_illegal_crossing"],
+"recommendation": "扣押，等待文字复核及审判",
 "title": "案卷：卖盐老人"
 }
 puzzle_data = {
