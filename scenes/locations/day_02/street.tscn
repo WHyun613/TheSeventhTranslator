@@ -1,0 +1,101 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/locations/location_view.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/locations/scene_hotspot.gd" id="2"]
+
+[node name="Day02Street" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+location_id = "day02_street"
+background_asset_id = "bg_day02_street"
+[node name="Fallback" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.18,0.12,0.07,1)
+[node name="FallbackLabel" type="Label" parent="Fallback"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -420.0
+offset_top = -100.0
+offset_right = 420.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "第二天 · 小镇街道\n[背景图待替换]"
+horizontal_alignment = 1
+vertical_alignment = 1
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 6
+[node name="HotspotLayer" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+[node name="hotspot_boy_drawing" type="Button" parent="HotspotLayer"]
+offset_left = 650.0
+offset_top = 700.0
+offset_right = 950.0
+offset_bottom = 980.0
+script = ExtResource("2")
+hotspot_id = &"boy_drawing"
+display_label = "小男孩掉落的画"
+visual_asset_id = &"prop_day02_boy_drawing"
+[node name="hotspot_wallet" type="Button" parent="HotspotLayer"]
+offset_left = 990.0
+offset_top = 760.0
+offset_right = 1210.0
+offset_bottom = 970.0
+script = ExtResource("2")
+hotspot_id = &"wallet"
+display_label = "Marina 的钱包"
+visual_asset_id = &"prop_day02_wallet"
+[node name="hotspot_bag" type="Button" parent="HotspotLayer"]
+offset_left = 1220.0
+offset_top = 720.0
+offset_right = 1480.0
+offset_bottom = 990.0
+script = ExtResource("2")
+hotspot_id = &"cloth_bag"
+display_label = "破布袋"
+visual_asset_id = &"prop_day02_bag"
+[node name="hotspot_to_woods" type="Button" parent="HotspotLayer"]
+offset_left = 1540.0
+offset_top = 250.0
+offset_right = 1900.0
+offset_bottom = 930.0
+script = ExtResource("2")
+hotspot_id = &"to_woods"
+display_label = "前往树林"
+[node name="hotspot_to_room" type="Button" parent="HotspotLayer"]
+offset_left = 20.0
+offset_top = 250.0
+offset_right = 300.0
+offset_bottom = 930.0
+script = ExtResource("2")
+hotspot_id = &"to_room"
+display_label = "返回译者房间"

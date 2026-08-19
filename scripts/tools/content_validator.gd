@@ -9,7 +9,10 @@ static func validate_day(day: DayDefinition, catalog: AssetCatalog) -> PackedStr
 		return issues
 	if day.day_id.is_empty():
 		issues.append("DayDefinition.day_id 为空。")
-	for dialogue_id in ["coachman_intro", "tomas_onboarding", "tomas_case_intro", "tomas_verdict_approve", "tomas_verdict_question"]:
+	var required_dialogues := ["coachman_intro", "tomas_onboarding", "tomas_case_intro", "tomas_verdict_approve", "tomas_verdict_question"]
+	if String(day.day_id) == "day_02":
+		required_dialogues = ["day02_tomas_briefing", "day02_marina_intro", "day02_pickpocket", "day02_marina_leave", "day02_marina_return", "day02_verdict_approve", "day02_verdict_question"]
+	for dialogue_id in required_dialogues:
 		if not day.dialogues.has(dialogue_id) or (day.dialogues[dialogue_id] as Array).is_empty():
 			issues.append("缺少必需对白：%s" % dialogue_id)
 	for item_id in day.items:
@@ -45,6 +48,9 @@ static func validate_day(day: DayDefinition, catalog: AssetCatalog) -> PackedStr
 		var conclusion_id := String(recipe.get("conclusion_id", ""))
 		if conclusion_id.is_empty() or not day.items.has(conclusion_id):
 			issues.append("推理结论物品不存在：%s" % conclusion_id)
+	for required_conclusion in day.case_data.get("question_required_conclusions", []) as Array:
+		if not day.items.has(String(required_conclusion)):
+			issues.append("案卷存疑条件引用了不存在的结论：%s" % String(required_conclusion))
 	if not catalog.entries.has("font_body_zh") or catalog.get_asset(&"font_body_zh") == null:
 		issues.append("发布字体 font_body_zh 未绑定。")
 	return issues

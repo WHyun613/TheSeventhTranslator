@@ -10,6 +10,10 @@ const SettingsPanelScene := preload("res://scripts/ui/settings_panel.gd")
 const TownOutskirtsScene := preload("res://scenes/locations/day_01/town_outskirts.tscn")
 const TranslatorRoomScene := preload("res://scenes/locations/shared/translator_room.tscn")
 const TranslatorDeskScene := preload("res://scenes/locations/shared/translator_desk.tscn")
+const Day02StreetScene := preload("res://scenes/locations/day_02/street.tscn")
+const Day02WoodsScene := preload("res://scenes/locations/day_02/woods.tscn")
+const Day02ArchiveEntranceScene := preload("res://scenes/locations/day_02/archive_entrance.tscn")
+const Day02ArchiveInteriorScene := preload("res://scenes/locations/day_02/archive_interior.tscn")
 
 var content := ContentDB.new()
 var state := GameState.new()
@@ -27,6 +31,7 @@ var _location_host: Control
 var _current_location_view: LocationView
 var _tutorial_label: Label
 var _save_label: Label
+var _day_label: Label
 var _inventory_button: Button
 var _reasoning_button: Button
 var _summary_result: RichTextLabel
@@ -47,6 +52,7 @@ var _toast_timer: Timer
 
 var _dialogue_callback := Callable()
 var _drawer_document_chain := false
+var _day02_intro_photo_chain := false
 
 
 func _ready() -> void:
@@ -223,11 +229,11 @@ func _build_game_screen() -> Control:
 	var top := HBoxContainer.new()
 	top.add_theme_constant_override("separation", 10)
 	top_margin.add_child(top)
-	var day := Label.new()
-	day.text = "第 1 天"
-	day.add_theme_font_size_override("font_size", 34)
-	day.custom_minimum_size = Vector2(160, 0)
-	top.add_child(day)
+	_day_label = Label.new()
+	_day_label.text = "第 1 天"
+	_day_label.add_theme_font_size_override("font_size", 34)
+	_day_label.custom_minimum_size = Vector2(160, 0)
+	top.add_child(_day_label)
 	_save_label = Label.new()
 	_save_label.text = ""
 	_save_label.modulate = Color(0.58, 0.54, 0.47)
@@ -308,10 +314,10 @@ func _build_day_summary_screen() -> Control:
 
 
 func _build_day_two_screen() -> Control:
-	var screen := _build_centered_screen("第二天")
+	var screen := _build_centered_screen("第三天")
 	var box := screen.get_meta("content_box") as VBoxContainer
 	var message := Label.new()
-	message.text = "Day 2 内容尚未开放\n\n通用框架与存档已准备好，后续可直接接入新的地点、对话、案件和谜题资源。"
+	message.text = "第二天调查已经完成。\n\nDay 3 内容尚未开放；存档、案件结果与累计理解度已经保留。"
 	message.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	message.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	message.custom_minimum_size = Vector2(820, 240)
@@ -371,6 +377,7 @@ func _build_overlays() -> void:
 	_case_review = CaseReviewPanelScene.new() as CaseReviewPanel
 	_case_review.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_case_review.verdict_confirmed.connect(_on_verdict_confirmed)
+	_case_review.attachment_requested.connect(_on_case_attachment_requested)
 	add_child(_case_review)
 	_settings = SettingsPanelScene.new() as SettingsPanel
 	_settings.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -467,7 +474,11 @@ func _new_game() -> void:
 
 func _continue_game() -> void:
 	state.load_from_dict(save_service.load_state())
-	if bool(state.flag("day01_complete", false)):
+	content.set_current_day(String(state.data.get("current_day", "day_01")))
+	if bool(state.flag("day02_complete", false)):
+		_show_day_three_placeholder()
+		return
+	if bool(state.flag("day01_complete", false)) and String(state.data.get("current_day", "day_01")) == "day_01":
 		_show_day_summary()
 		return
 	_show_game()
@@ -475,6 +486,7 @@ func _continue_game() -> void:
 
 
 func _show_game() -> void:
+	content.set_current_day(String(state.data.get("current_day", "day_01")))
 	_menu_screen.visible = false
 	_game_screen.visible = true
 	_day_summary_screen.visible = false
@@ -483,6 +495,9 @@ func _show_game() -> void:
 
 
 func _resume_progress() -> void:
+	if String(state.data.get("current_day", "day_01")) == "day_02":
+		_resume_day_two()
+		return
 	if String(state.data.get("current_location", "")) not in ["translator_room", "translator_desk"]:
 		return
 	if bool(state.flag("case_salt_elder_submitted", false)) and not bool(state.flag("day01_complete", false)):
@@ -514,9 +529,18 @@ func _refresh_location() -> void:
 	match location_id:
 		"town_outskirts": packed_scene = TownOutskirtsScene
 		"translator_desk": packed_scene = TranslatorDeskScene
+		"day02_street": packed_scene = Day02StreetScene
+		"day02_woods": packed_scene = Day02WoodsScene
+		"day02_archive_entrance": packed_scene = Day02ArchiveEntranceScene
+		"day02_archive_interior": packed_scene = Day02ArchiveInteriorScene
 		_: packed_scene = TranslatorRoomScene
 	_current_location_view = packed_scene.instantiate() as LocationView
 	_location_host.add_child(_current_location_view)
+	if String(state.data.get("current_day", "day_01")) == "day_02" and location_id == "translator_desk":
+		var case_hotspot := _current_location_view.hotspot_by_id("case_file")
+		if case_hotspot != null:
+			case_hotspot.visual_asset_id = &"prop_day02_case_detailed"
+			case_hotspot.visual_region = Rect2()
 	_current_location_view.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_current_location_view.hotspot_activated.connect(_on_scene_hotspot_activated)
 	var asset_id := String(location.get("asset_id", ""))
@@ -526,6 +550,9 @@ func _refresh_location() -> void:
 
 
 func _on_scene_hotspot_activated(hotspot_id: String) -> void:
+	if String(state.data.get("current_day", "day_01")) == "day_02":
+		_handle_day02_hotspot(hotspot_id)
+		return
 	match hotspot_id:
 		"corn_leaf": _inspect_corn_leaf()
 		"enter_town": _enter_town()
@@ -540,7 +567,11 @@ func _on_scene_hotspot_activated(hotspot_id: String) -> void:
 
 func _update_topbar() -> void:
 	_inventory_button.disabled = (state.data["inventory"] as Array).is_empty()
+	_day_label.text = "第 2 天" if String(state.data.get("current_day", "day_01")) == "day_02" else "第 1 天"
 	if _current_location_view == null:
+		return
+	if String(state.data.get("current_day", "day_01")) == "day_02":
+		_update_day02_hotspots()
 		return
 	if _current_location_view.location_id == "translator_room":
 		_current_location_view.set_hotspot_visible("objective_paper", state.has_item("item_player_objective"))
@@ -550,6 +581,9 @@ func _update_topbar() -> void:
 
 
 func _update_tutorial_text() -> void:
+	if String(state.data.get("current_day", "day_01")) == "day_02":
+		_update_day02_objective()
+		return
 	if String(state.data.get("current_location", "")) == "town_outskirts":
 		_tutorial_label.text = "可选：查看玉米叶了解小镇过去；准备好后进入镇内。"
 		return
@@ -623,7 +657,7 @@ func _open_objective() -> void:
 
 
 func _open_inventory() -> void:
-	_inventory.open_inventory(state.data["inventory"] as Array, content.current_day.items, content.ASSET_CATALOG)
+	_inventory.open_inventory(state.data["inventory"] as Array, content.all_items(), content.ASSET_CATALOG)
 	if int(state.flag("tutorial_stage", 0)) == 2:
 		state.set_flag("tutorial_stage", 3)
 		_auto_save()
@@ -648,10 +682,13 @@ func _open_document(document_id: String) -> void:
 		return
 	var asset_id := String(document.get("asset_id", ""))
 	if document.has("page_asset_ids"):
+		var page_asset_ids := (document.get("page_asset_ids", []) as Array).duplicate()
+		if document_id == "official_dictionary" and not state.has_conclusion("conclusion_day02_hand_protects") and page_asset_ids.size() > 1:
+			page_asset_ids.resize(1)
 		_document_viewer.open_image_document(
 			document_id,
 			String(document.get("title", document_id)),
-			document.get("page_asset_ids", []) as Array,
+			page_asset_ids,
 			content.ASSET_CATALOG
 		)
 		return
@@ -665,6 +702,20 @@ func _open_document(document_id: String) -> void:
 
 
 func _on_document_closed(document_id: String) -> void:
+	if String(state.data.get("current_day", "day_01")) == "day_02":
+		if document_id == "day02_elder_photo" and _day02_intro_photo_chain:
+			_day02_intro_photo_chain = false
+			_play_dialogue("day02_pickpocket", func() -> void:
+				_play_dialogue("day02_marina_leave", func() -> void:
+					state.set_flag("day02_street_event_complete")
+					state.data["checkpoint"] = "day02_street_free"
+					_auto_save()
+					_refresh_location()
+				)
+			)
+			return
+		if document_id == "conclusion_day02_hand_protects_doc":
+			_try_day02_marina_followup()
 	var stage := int(state.flag("tutorial_stage", 0))
 	if document_id == "official_dictionary" and stage == 1:
 		state.set_flag("tutorial_stage", 2)
@@ -700,13 +751,22 @@ func _start_case_intro() -> void:
 
 
 func _open_case() -> void:
+	if String(state.data.get("current_day", "day_01")) == "day_02":
+		if not bool(state.flag("day02_case_received", false)):
+			_toast("Tomas 还没有交付第二天的详细案卷。")
+			return
+		if bool(state.flag("day02_case_submitted", false)):
+			_toast("第二天的案卷已经提交。")
+			return
+		_case_review.open_case(content.current_day.case_data, state.data["conclusions"] as Array, content.ASSET_CATALOG)
+		return
 	if not bool(state.flag("case_salt_elder_received", false)):
 		_toast("你还没有收到今天的案卷。")
 		return
 	if bool(state.flag("case_salt_elder_submitted", false)):
 		_toast("案卷已经提交，不能再次修改。")
 		return
-	_case_review.open_case(content.current_day.case_data, state.has_conclusion("conclusion_day01_no_illegal_crossing"), content.ASSET_CATALOG)
+	_case_review.open_case(content.current_day.case_data, state.data["conclusions"] as Array, content.ASSET_CATALOG)
 
 
 func _open_drawer() -> void:
@@ -732,12 +792,16 @@ func _inspect_office_door() -> void:
 
 
 func _open_reasoning() -> void:
-	if not state.has_item("item_day01_old_text") or not state.has_item("item_day01_marina_note"):
-		_toast("推理台需要至少两条相关材料。抽屉里或许有线索。")
+	var reasoning_count := 0
+	for raw_item_id in state.data["inventory"] as Array:
+		if bool(content.item(String(raw_item_id)).get("reasoning", false)):
+			reasoning_count += 1
+	if reasoning_count < 2:
+		_toast("推理台需要至少两条相关材料。")
 		return
 	_reasoning.open_board(
 		state.data["inventory"] as Array,
-		content.current_day.items,
+		content.all_items(),
 		content.current_day.puzzle_data,
 		state.data["conclusions"] as Array,
 		content.ASSET_CATALOG
@@ -750,15 +814,20 @@ func _on_reasoning_solved(conclusion_id: String) -> void:
 		state.data["checkpoint"] = "conclusion_unlocked"
 		_auto_save()
 		_refresh_location()
-		_open_document("conclusion_no_illegal_crossing")
+		var conclusion_item := content.item(conclusion_id)
+		_open_document(String(conclusion_item.get("document_id", "conclusion_no_illegal_crossing")))
 
 
 func _on_verdict_confirmed(verdict: String) -> void:
+	if String(state.data.get("current_day", "day_01")) == "day_02":
+		_submit_day02_verdict(verdict)
+		return
 	if bool(state.flag("case_salt_elder_submitted", false)):
 		return
 	state.set_flag("case_salt_elder_submitted")
 	state.data["case_verdict"] = verdict
-	state.data["case_understanding"] = 1 if verdict == "QUESTION" else 0
+	state.data["case_understanding"] = 0
+	state.record_case("case_salt_elder_day01", verdict, 1 if verdict == "QUESTION" else 0)
 	state.data["checkpoint"] = "case_submitted"
 	_auto_save()
 	_refresh_location()
@@ -789,6 +858,199 @@ func _show_day_summary() -> void:
 
 
 func _show_day_two() -> void:
+	state.data["current_day"] = "day_02"
+	state.data["current_location"] = "translator_desk"
+	state.data["checkpoint"] = "day02_start"
+	state.set_flag("day02_started")
+	content.set_current_day("day_02")
+	_validate_content()
+	_auto_save()
+	_show_game()
+	_start_day02_briefing()
+
+
+func _resume_day_two() -> void:
+	if bool(state.flag("day02_case_submitted", false)) and not bool(state.flag("day02_complete", false)):
+		_play_dialogue(
+			"day02_verdict_question" if String(state.data.get("case_verdict", "")) == "QUESTION" else "day02_verdict_approve",
+			_finish_day_two
+		)
+		return
+	if not bool(state.flag("day02_briefing_complete", false)):
+		_start_day02_briefing()
+		return
+	if String(state.data.get("current_location", "")) == "day02_street":
+		_trigger_day02_street_events()
+
+
+func _start_day02_briefing() -> void:
+	if bool(state.flag("day02_briefing_complete", false)):
+		return
+	_play_dialogue("day02_tomas_briefing", func() -> void:
+		state.set_flag("day02_briefing_complete")
+		state.set_flag("day02_case_received")
+		state.data["checkpoint"] = "day02_case_received"
+		_auto_save()
+		_refresh_location()
+		_open_document("day02_case_hint")
+	)
+
+
+func _handle_day02_hotspot(hotspot_id: String) -> void:
+	match hotspot_id:
+		"case_file": _open_case()
+		"dictionary": _open_dictionary()
+		"translator_room": _go_day02_location("translator_room")
+		"translator_desk": _go_day02_location("translator_desk")
+		"objective_paper": _open_objective()
+		"drawer": _toast("抽屉中第一天发现的材料仍保存在物品栏里。")
+		"exit_to_street", "to_street": _go_day02_location("day02_street")
+		"to_room": _go_day02_location("translator_room")
+		"to_woods": _go_day02_location("day02_woods")
+		"to_archive_entrance": _go_day02_location("day02_archive_entrance")
+		"archive_door": _go_day02_location("day02_archive_interior")
+		"archive_exit": _go_day02_location("day02_archive_entrance")
+		"boy_drawing": _take_day02_item("item_day02_boy_drawing", "获得“小男孩的画”。")
+		"wallet": _take_day02_item("item_day02_wallet", "捡起 Marina 的钱包。")
+		"cloth_bag":
+			state.set_flag("day02_bag_seen")
+			_auto_save()
+			_refresh_location()
+			_toast("破布袋属于那个孩子，不能带走。")
+		"paper_stack": _take_day02_item("item_day02_old_letter", "从纸堆中找到一封旧信。")
+		"old_map":
+			_take_day02_item("item_day02_old_map", "取得标有过去边界的旧地图。")
+			state.set_flag("day02_old_map_found")
+			_auto_save()
+		"black_stamp":
+			state.set_flag("day02_black_stamp_seen")
+			_auto_save()
+			_toast("一枚又大又破旧的黑章。用途仍不明确，暂不带走。")
+		_: push_warning("未处理的第二天场景热点：" + hotspot_id)
+
+
+func _go_day02_location(location_id: String) -> void:
+	state.data["current_location"] = location_id
+	state.data["checkpoint"] = "day02_" + location_id
+	_auto_save()
+	_refresh_location()
+	if location_id == "day02_street":
+		_trigger_day02_street_events()
+
+
+func _trigger_day02_street_events() -> void:
+	if not bool(state.flag("day02_street_event_complete", false)):
+		_play_dialogue("day02_marina_intro", func() -> void:
+			_day02_intro_photo_chain = true
+			_open_document("day02_elder_photo")
+		)
+		return
+	if state.has_item("item_day02_old_map") and not bool(state.flag("day02_marina_return_complete", false)):
+		_play_dialogue("day02_marina_return", func() -> void:
+			state.set_flag("day02_marina_return_complete")
+			_auto_save()
+			_try_day02_marina_followup()
+		)
+		return
+	_try_day02_marina_followup()
+
+
+func _try_day02_marina_followup() -> void:
+	if String(state.data.get("current_location", "")) != "day02_street":
+		return
+	if not bool(state.flag("day02_marina_return_complete", false)):
+		return
+	if not state.has_conclusion("conclusion_day02_hand_protects") or bool(state.flag("day02_marina_glyph_followup_complete", false)):
+		return
+	_play_dialogue("day02_marina_glyph_followup", func() -> void:
+		state.set_flag("day02_marina_glyph_followup_complete")
+		_auto_save()
+	)
+
+
+func _take_day02_item(item_id: String, message: String) -> void:
+	if not state.add_item(item_id):
+		_toast("这件材料已经在物品栏里。")
+		return
+	state.data["checkpoint"] = "day02_item_" + item_id
+	_auto_save()
+	_refresh_location()
+	_toast(message)
+	var document_id := String(content.item(item_id).get("document_id", ""))
+	if not document_id.is_empty():
+		_open_document(document_id)
+
+
+func _on_case_attachment_requested(action_id: String) -> void:
+	if action_id != "day02_take_field_photo":
+		return
+	_case_review.visible = false
+	if state.add_item("item_day02_field_photo"):
+		state.set_flag("day02_field_photo_taken")
+		state.data["checkpoint"] = "day02_field_photo"
+		_auto_save()
+		_toast("案卷中的田地照片已加入物品栏。")
+	_open_document("day02_field_photo")
+
+
+func _update_day02_hotspots() -> void:
+	var location_id := String(state.data.get("current_location", ""))
+	if location_id == "translator_room":
+		_current_location_view.set_hotspot_visible("exit_to_street", true)
+		_current_location_view.set_hotspot_visible("objective_paper", state.has_item("item_player_objective"))
+	elif location_id == "translator_desk":
+		_current_location_view.set_hotspot_visible("dictionary", state.has_item("item_official_dictionary_v4"))
+		_current_location_view.set_hotspot_visible("case_file", bool(state.flag("day02_case_received", false)) and not bool(state.flag("day02_case_submitted", false)))
+	elif location_id == "day02_street":
+		var event_complete := bool(state.flag("day02_street_event_complete", false))
+		_current_location_view.set_hotspot_visible("boy_drawing", event_complete and not state.has_item("item_day02_boy_drawing"))
+		_current_location_view.set_hotspot_visible("wallet", event_complete and not state.has_item("item_day02_wallet"))
+		_current_location_view.set_hotspot_visible("cloth_bag", event_complete and not bool(state.flag("day02_bag_seen", false)))
+		_current_location_view.set_hotspot_enabled("to_woods", event_complete)
+	elif location_id == "day02_archive_interior":
+		_current_location_view.set_hotspot_visible("paper_stack", not state.has_item("item_day02_old_letter"))
+		_current_location_view.set_hotspot_visible("old_map", not state.has_item("item_day02_old_map"))
+
+
+func _update_day02_objective() -> void:
+	if not bool(state.flag("day02_briefing_complete", false)):
+		_tutorial_label.text = "等待 Tomas 交付详细案卷。"
+	elif bool(state.flag("day02_case_submitted", false)):
+		_tutorial_label.text = "第二天的案卷已经提交。"
+	elif state.has_conclusion("conclusion_day02_hand_protects") and state.has_conclusion("conclusion_day02_border_changed"):
+		_tutorial_label.text = "两项证据链已经成立。返回译者桌提交通过或存疑。"
+	elif not state.has_item("item_day02_field_photo"):
+		_tutorial_label.text = "打开译者桌上的详细案卷，取得田地照片。"
+	elif not bool(state.flag("day02_street_event_complete", false)):
+		_tutorial_label.text = "从译者房间的大门前往街道调查。"
+	elif not state.has_item("item_day02_old_letter") or not state.has_item("item_day02_old_map"):
+		_tutorial_label.text = "穿过树林进入档案室，寻找旧信和旧地图。"
+	else:
+		_tutorial_label.text = "使用译者推理台，将画与旧信、田地照片与旧地图分别组合。"
+
+
+func _submit_day02_verdict(verdict: String) -> void:
+	if bool(state.flag("day02_case_submitted", false)):
+		return
+	state.set_flag("day02_case_submitted")
+	state.record_case("case_salt_elder_day02", verdict, 1 if verdict == "QUESTION" else 0)
+	(state.data["day_results"] as Dictionary)["day_02"] = {"verdict": verdict}
+	state.data["checkpoint"] = "day02_case_submitted"
+	_auto_save()
+	_refresh_location()
+	_play_dialogue("day02_verdict_question" if verdict == "QUESTION" else "day02_verdict_approve", _finish_day_two)
+
+
+func _finish_day_two() -> void:
+	state.set_flag("day02_complete")
+	state.data["checkpoint"] = "day02_complete"
+	_auto_save()
+	_show_day_three_placeholder()
+
+
+func _show_day_three_placeholder() -> void:
+	_menu_screen.visible = false
+	_game_screen.visible = false
 	_day_summary_screen.visible = false
 	_day_two_screen.visible = true
 
@@ -820,6 +1082,10 @@ func _on_dialogue_line_presented(speaker: String, expression: String) -> void:
 		asset_id = "char_tomas_" + expression
 	elif speaker == "马车夫":
 		asset_id = "char_coachman_neutral"
+	elif speaker == "Marina":
+		asset_id = "char_marina_" + expression
+	elif speaker == "神秘男孩":
+		asset_id = "char_mystery_boy_neutral"
 	var texture := content.asset_texture(asset_id)
 	_character_portrait.texture = texture
 	_character_portrait.visible = texture != null

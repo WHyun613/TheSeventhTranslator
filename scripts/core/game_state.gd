@@ -1,7 +1,7 @@
 class_name GameState
 extends RefCounted
 
-const SAVE_VERSION := 1
+const SAVE_VERSION := 2
 
 var data: Dictionary = {}
 
@@ -22,6 +22,8 @@ func reset() -> void:
 		"conclusions": [],
 		"case_understanding": 0,
 		"case_verdict": "",
+		"case_records": {},
+		"day_results": {},
 		"play_seconds": 0.0,
 	}
 
@@ -37,6 +39,13 @@ func load_from_dict(payload: Dictionary) -> void:
 	data["flags"] = (data.get("flags", {}) as Dictionary).duplicate(true)
 	data["inventory"] = (data.get("inventory", []) as Array).duplicate()
 	data["conclusions"] = (data.get("conclusions", []) as Array).duplicate()
+	data["case_records"] = (data.get("case_records", {}) as Dictionary).duplicate(true)
+	data["day_results"] = (data.get("day_results", {}) as Dictionary).duplicate(true)
+	if not (data["case_records"] as Dictionary).has("case_salt_elder_day01") and not String(data.get("case_verdict", "")).is_empty():
+		(data["case_records"] as Dictionary)["case_salt_elder_day01"] = {
+			"verdict": String(data.get("case_verdict", "")),
+			"understanding_delta": int(data.get("case_understanding", 0)),
+		}
 
 
 func to_dict() -> Dictionary:
@@ -72,3 +81,11 @@ func add_conclusion(conclusion_id: String) -> bool:
 	(data["conclusions"] as Array).append(conclusion_id)
 	return true
 
+
+func record_case(case_id: String, verdict: String, understanding_delta: int) -> void:
+	(data["case_records"] as Dictionary)[case_id] = {
+		"verdict": verdict,
+		"understanding_delta": understanding_delta,
+	}
+	data["case_verdict"] = verdict
+	data["case_understanding"] = int(data.get("case_understanding", 0)) + understanding_delta

@@ -91,3 +91,14 @@ offset_bottom = 1060.0
 script = ExtResource("2_hotspot")
 hotspot_id = &"drawer"
 display_label = "桌子抽屉"
+
+[node name="hotspot_exit_to_street" type="Button" parent="HotspotLayer"]
+visible = false
+layout_mode = 0
+offset_left = 1500.0
+offset_top = 260.0
+offset_right = 1880.0
+offset_bottom = 980.0
+script = ExtResource("2_hotspot")
+hotspot_id = &"exit_to_street"
+display_label = "前往小镇街道"

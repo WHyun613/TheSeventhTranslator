@@ -1,6 +1,6 @@
 # 第七名译者
 
-Godot 4.7.1 文字解谜游戏。目前已完成第一天的可玩纵向切片，正式美术和音频使用占位回退。
+Godot 4.7.1 文字解谜游戏。目前已完成第一天与第二天的可玩纵向切片，正式美术和音频使用占位回退。
 
 地点采用 1920×1080 全屏场景图，玩家直接点击图片中的物品进行调查；物品栏、任务提示、对白、文档、案卷与设置作为独立 UI 浮层显示在场景上方，交互结构接近《逆转裁判》的调查部分。
 
@@ -14,7 +14,7 @@ Godot 4.7.1 文字解谜游戏。目前已完成第一天的可玩纵向切片�
 
 - Godot 长期分支：`godot-main`；远程 `main` 继续保留原 Unity 项目。
 - 功能开发从 `godot-main` 新建分支，并通过 Pull Request 合回 `godot-main`。
-- GitHub Actions 会用 Godot 4.7.1 完成 headless 导入和 Day 1 冒烟测试，并为通过测试的分支推送生成源码 artifact。
+- GitHub Actions 会用 Godot 4.7.1 完成 headless 导入和 Day 1、Day 2 冒烟测试，并为通过测试的分支推送生成源码 artifact。
 - 具体约定见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 ## 第一天内容
@@ -28,18 +28,29 @@ Godot 4.7.1 文字解谜游戏。目前已完成第一天的可玩纵向切片�
 - 抽屉中的旧文和 mari 纸条。
 - 物品栏旁提供译者推理台 UI 入口；当前推理内容仍支持点击选择或拖入槽位。
 - 蓝章通过、红章存疑、黑章禁用。
-- 两条结算路线、案件理解度和 Day 2 占位页。
+- 两条结算路线、案件理解度和 Day 2 转场。
 - 自动存档与中断恢复。
+
+## 第二天内容
+
+- Tomas 交付卖盐老人详细案卷，案卷附件可取得现行边界田地照片。
+- 译者房间新增室外出口；街道、树林、档案室大门与档案室内部组成可往返调查路线。
+- Marina 初见、小男孩扒窃事件、老人照片与后续对话。
+- 小男孩的画、钱包、旧信、旧地图与黑章调查。
+- “画 + 旧信”固定推出“手掌 = 守护”；“田地照片 + 旧地图”固定推出“边界发生变化”。
+- 证据不会消耗且可复用；两项结论齐全后解锁红章存疑。
+- 第二天通过/存疑双结局、累计理解度、自动存档与 Day 3 占位页。
 
 ## 重要文件
 
 - 开发计划：[DAY1_PLAN_AND_ARCHITECTURE.md](DAY1_PLAN_AND_ARCHITECTURE.md)
 - 资产教程：[ASSET_REPLACEMENT_GUIDE.md](ASSET_REPLACEMENT_GUIDE.md)
 - 第一日内容：`content/days/day_01/day_01.tres`
+- 第二日内容：`content/days/day_02/day_02.tres`
 - 资产映射：`content/catalogs/asset_catalog.tres`
 - 主场景：`scenes/app/main.tscn`
 - 主流程：`scripts/app/main.gd`
-- 自动化流程测试：`tests/day01_smoke_test.gd`
+- 自动化流程测试：`tests/day01_smoke_test.gd`、`tests/day02_smoke_test.gd`
 
 ## 当前策划暂定值
 

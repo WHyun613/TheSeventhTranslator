@@ -24,6 +24,7 @@
 ```text
 godot --headless --editor --path . --quit
 godot --headless --path . --script res://tests/day01_smoke_test.gd
+godot --headless --path . --script res://tests/day02_smoke_test.gd
 ```
 
 第二条命令成功时会输出 `DAY01_SMOKE_TEST_OK` 并以状态码 0 结束。

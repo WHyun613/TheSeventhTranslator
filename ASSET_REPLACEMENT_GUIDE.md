@@ -119,3 +119,48 @@ font_body_zh
 5. 三枚印章仍能看清文字，其中黑章保持禁用。
 6. 在 1920×1080、1600×900 和 1280×720 窗口下检查一次。
 7. 每个场景热点都能点中正确物品，缩放窗口后热点不会偏离背景。
+
+## 8. 第二天资产填入表
+
+第二天仍使用同一个 `res://content/catalogs/asset_catalog.tres`。把图片先复制进 `res://assets/`，等待 Godot 导入完成，再把“文件系统”面板中的图片资源拖到下列 `entries` 对应值上。不要把图片拖到 Key 文本上。
+
+| Asset ID | 推荐放置路径 | 使用位置 |
+| --- | --- | --- |
+| `bg_day02_street` | `assets/backgrounds/day_02/street.png` | 小镇街道全屏背景 |
+| `bg_day02_woods` | `assets/backgrounds/day_02/woods.png` | 树林全屏背景 |
+| `bg_day02_archive_entrance` | `assets/backgrounds/day_02/archive_entrance.png` | 档案室大门背景 |
+| `bg_day02_archive_interior` | `assets/backgrounds/day_02/archive_interior.png` | 档案室内部背景 |
+| `char_marina_neutral` | `assets/characters/marina/neutral.png` | Marina 普通半身立绘 |
+| `char_marina_urgent` | `assets/characters/marina/urgent.png` | Marina 紧张/追赶半身立绘 |
+| `char_mystery_boy_neutral` | `assets/characters/mystery_boy/neutral.png` | 神秘男孩半身立绘 |
+| `prop_day02_case_detailed` | `assets/items/day_02/case_detailed.png` | 第二天译者桌上的案卷物品 |
+| `prop_day02_boy_drawing` | `assets/items/day_02/boy_drawing_scene.png` | 街道地面上的画 |
+| `prop_day02_wallet` | `assets/items/day_02/wallet_scene.png` | 街道地面上的钱包 |
+| `prop_day02_bag` | `assets/items/day_02/cloth_bag_scene.png` | 街道地面上的破布袋 |
+| `prop_day02_paper_stack` | `assets/items/day_02/paper_stack.png` | 档案室纸堆 |
+| `prop_day02_old_map` | `assets/items/day_02/old_map_scene.png` | 档案室墙面旧地图 |
+| `prop_day02_black_stamp` | `assets/items/day_02/black_stamp_scene.png` | 档案室黑章 |
+| `item_day02_field_photo` | `assets/documents/day_02/field_photo.png` | 案卷附件与推理证据 |
+| `item_day02_boy_drawing` | `assets/documents/day_02/boy_drawing.png` | 画的物品栏详情 |
+| `item_day02_wallet` | `assets/documents/day_02/wallet.png` | 钱包详情 |
+| `item_day02_old_letter` | `assets/documents/day_02/old_letter.png` | 旧信详情与推理证据 |
+| `item_day02_old_map` | `assets/documents/day_02/old_map.png` | 旧地图详情与推理证据 |
+| `doc_day02_elder_photo` | `assets/documents/day_02/elder_photo.png` | Marina 对话中的老人照片 |
+| `doc_dictionary_hand_unlocked` | `assets/documents/day_02/dictionary_hand.png` | 得出“手掌=守护”后解锁的词典第二页 |
+| `conclusion_day02_hand_protects` | `assets/documents/day_02/conclusion_hand.png` | 结论 02 卡片 |
+| `conclusion_day02_border_changed` | `assets/documents/day_02/conclusion_border.png` | 结论 03 卡片 |
+
+田地照片必须画清“现行边界”，旧地图必须画清“过去较小的边界”；小男孩的画应能看出手掌正在保护玉米田、挡住红色雨滴。否则逻辑虽然可以运行，玩家却无法仅凭图像理解推理。
+
+## 9. 第二天热点对齐路径
+
+打开场景、选择根节点并点击“从 AssetCatalog 刷新背景预览”，然后在 `HotspotLayer` 下移动矩形：
+
+- 译者房间室外出口：`res://scenes/locations/shared/translator_room.tscn` → `hotspot_exit_to_street`。它在 D1 自动隐藏，D2 自动启用。
+- 第二天案卷与词典：`res://scenes/locations/shared/translator_desk.tscn` → `hotspot_case_file`、`hotspot_dictionary`。D2 会自动把案卷图切换为 `prop_day02_case_detailed`。
+- 街道：`res://scenes/locations/day_02/street.tscn` → 画、钱包、布袋、树林出口和房间出口。
+- 树林：`res://scenes/locations/day_02/woods.tscn` → 街道出口和档案室方向。
+- 档案室大门：`res://scenes/locations/day_02/archive_entrance.tscn` → 大门和树林出口。
+- 档案室内部：`res://scenes/locations/day_02/archive_interior.tscn` → 纸堆、旧地图、黑章和出口。
+
+第二天正文、物品、地点与推理配方集中在 `res://content/days/day_02/day_02.tres`。更换图片只改 AssetCatalog，不需要改这个数据文件；只有调整正文、配方或增加新词典页时才编辑它。

@@ -1,0 +1,90 @@
+[gd_scene load_steps=3 format=3]
+[ext_resource type="Script" path="res://scripts/locations/location_view.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/locations/scene_hotspot.gd" id="2"]
+[node name="ArchiveInterior" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+location_id = "day02_archive_interior"
+background_asset_id = "bg_day02_archive_interior"
+[node name="Fallback" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.11,0.085,0.06,1)
+[node name="FallbackLabel" type="Label" parent="Fallback"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -100.0
+offset_right = 400.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "第二天 · 档案室内部\n[背景图待替换]"
+horizontal_alignment = 1
+vertical_alignment = 1
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 6
+[node name="HotspotLayer" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+[node name="hotspot_paper_stack" type="Button" parent="HotspotLayer"]
+offset_left = 300.0
+offset_top = 650.0
+offset_right = 720.0
+offset_bottom = 1000.0
+script = ExtResource("2")
+hotspot_id = &"paper_stack"
+display_label = "散乱纸堆"
+visual_asset_id = &"prop_day02_paper_stack"
+[node name="hotspot_old_map" type="Button" parent="HotspotLayer"]
+offset_left = 900.0
+offset_top = 250.0
+offset_right = 1370.0
+offset_bottom = 720.0
+script = ExtResource("2")
+hotspot_id = &"old_map"
+display_label = "墙上的旧地图"
+visual_asset_id = &"prop_day02_old_map"
+[node name="hotspot_black_stamp" type="Button" parent="HotspotLayer"]
+offset_left = 1450.0
+offset_top = 700.0
+offset_right = 1700.0
+offset_bottom = 980.0
+script = ExtResource("2")
+hotspot_id = &"black_stamp"
+display_label = "破旧黑章"
+visual_asset_id = &"prop_day02_black_stamp"
+[node name="hotspot_archive_exit" type="Button" parent="HotspotLayer"]
+offset_left = 20.0
+offset_top = 260.0
+offset_right = 280.0
+offset_bottom = 950.0
+script = ExtResource("2")
+hotspot_id = &"archive_exit"
+display_label = "离开档案室"

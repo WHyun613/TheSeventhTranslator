@@ -67,6 +67,9 @@ jobs:
       - name: Run Day 1 smoke test
         run: godot --headless --path "${GITHUB_WORKSPACE}" --script res://tests/day01_smoke_test.gd
 
+      - name: Run Day 2 smoke test
+        run: godot --headless --path "${GITHUB_WORKSPACE}" --script res://tests/day02_smoke_test.gd
+
       - name: Package verified Godot source
         if: github.event_name != 'pull_request'
         shell: bash

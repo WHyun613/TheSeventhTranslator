@@ -2,6 +2,7 @@ class_name CaseReviewPanel
 extends ColorRect
 
 signal verdict_confirmed(verdict: String)
+signal attachment_requested(action_id: String)
 signal closed
 
 var _case_body: RichTextLabel
@@ -11,6 +12,8 @@ var _unknown_button: Button
 var _submit_button: Button
 var _requirement_label: Label
 var _confirmation: ConfirmationDialog
+var _attachment_button: Button
+var _current_case_title := "案件"
 var _selected_verdict := ""
 
 
@@ -47,6 +50,13 @@ func _build_ui() -> void:
 	_case_body.custom_minimum_size = Vector2(1040, 410)
 	_case_body.add_theme_font_size_override("normal_font_size", 28)
 	box.add_child(_case_body)
+	_attachment_button = Button.new()
+	_attachment_button.text = "查看案卷附件"
+	_attachment_button.custom_minimum_size = Vector2(300, 54)
+	_attachment_button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	_attachment_button.pressed.connect(_request_attachment)
+	_attachment_button.visible = false
+	box.add_child(_attachment_button)
 	var stamp_title := Label.new()
 	stamp_title.text = "选择复核印章"
 	stamp_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -101,8 +111,17 @@ func _make_stamp(label_text: String, color_value: Color, verdict: String) -> But
 	return button
 
 
-func open_case(case_data: Dictionary, has_conclusion: bool, catalog: AssetCatalog) -> void:
+func open_case(case_data: Dictionary, known_conclusions: Array, catalog: AssetCatalog) -> void:
 	_selected_verdict = ""
+	_current_case_title = String(case_data.get("title", "案件"))
+	var required_conclusions := case_data.get("question_required_conclusions", []) as Array
+	var has_required_evidence := true
+	for conclusion_id in required_conclusions:
+		if String(conclusion_id) not in known_conclusions:
+			has_required_evidence = false
+			break
+	if required_conclusions.is_empty():
+		has_required_evidence = bool(case_data.get("question_enabled", false))
 	_case_body.text = (
 		"[font_size=34]%s[/font_size]\n\n" % String(case_data.get("title", "案卷"))
 		+ "被审判者：%s\n" % String(case_data.get("person", ""))
@@ -112,16 +131,18 @@ func open_case(case_data: Dictionary, has_conclusion: bool, catalog: AssetCatalo
 		+ "建议处理：%s\n\n" % String(case_data.get("recommendation", ""))
 		+ "[b]译者复核：[/b]请选择一枚语义印章。"
 	)
+	_attachment_button.visible = not String(case_data.get("attachment_action_id", "")).is_empty()
+	_attachment_button.set_meta("action_id", String(case_data.get("attachment_action_id", "")))
 	_approve_button.disabled = false
-	_question_button.disabled = not has_conclusion
-	_question_button.tooltip_text = "" if has_conclusion else "需要先找到能支持存疑的证据。"
+	_question_button.disabled = not has_required_evidence
+	_question_button.tooltip_text = "" if has_required_evidence else "需要先找到全部支持存疑的证据。"
 	_apply_stamp_icon(_approve_button, catalog.get_asset(&"stamp_approve") as Texture2D)
 	_apply_stamp_icon(_question_button, catalog.get_asset(&"stamp_question") as Texture2D)
 	_apply_stamp_icon(_unknown_button, catalog.get_asset(&"stamp_unknown") as Texture2D)
 	_requirement_label.text = (
-		"已获得证据：老人没有非法越境。可以提交存疑。"
-		if has_conclusion
-		else "存疑章尚不可用：需要先找到能支持存疑的证据。"
+		String(case_data.get("question_ready_text", "证据齐全，可以提交存疑。"))
+		if has_required_evidence
+		else String(case_data.get("question_locked_text", "存疑章尚不可用：需要先找到全部证据。"))
 	)
 	_submit_button.disabled = true
 	visible = true
@@ -141,7 +162,7 @@ func _select_verdict(verdict: String) -> void:
 
 func _request_submit() -> void:
 	var verdict_name := "通过" if _selected_verdict == "APPROVE" else "存疑"
-	_confirmation.dialog_text = "将以“%s”提交卖盐老人案。\n提交后不可撤回，是否继续？" % verdict_name
+	_confirmation.dialog_text = "将以“%s”提交%s。\n提交后不可撤回，是否继续？" % [verdict_name, _current_case_title]
 	_confirmation.popup_centered(Vector2i(620, 260))
 
 
@@ -153,3 +174,9 @@ func _confirm_submit() -> void:
 func _close() -> void:
 	visible = false
 	closed.emit()
+
+
+func _request_attachment() -> void:
+	var action_id := String(_attachment_button.get_meta("action_id", ""))
+	if not action_id.is_empty():
+		attachment_requested.emit(action_id)
