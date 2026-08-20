@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://dhn3t3vy7irp0"]
+
+[ext_resource type="Script" uid="uid://clhb23cc87c7h" path="res://scripts/locations/location_view.gd" id="1_location"]
+[ext_resource type="Texture2D" uid="uid://cj7ijxrhdu7qx" path="res://assets/backgrounds/day_01/小镇外街道.png" id="2_b6syk"]
+[ext_resource type="Script" uid="uid://ciyiifs0vhx4e" path="res://scripts/locations/scene_hotspot.gd" id="2_hotspot"]
+
+[node name="TownOutskirts" type="Control" unique_id=1369921622]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_location")
+location_id = "town_outskirts"
+background_asset_id = "bg_day01_town_outskirts"
+
+[node name="Fallback" type="ColorRect" parent="." unique_id=1481144470]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.105, 0.16, 0.09, 1)
+
+[node name="FallbackLabel" type="Label" parent="Fallback" unique_id=628314348]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -100.0
+offset_right = 360.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 34
+text = "town_outskirts
+
+[ 全屏场景图待替换 ]
+bg_day01_town_outskirts"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Background" type="TextureRect" parent="." unique_id=551135856]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_b6syk")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="HotspotLayer" type="Control" parent="." unique_id=491441922]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 8.0
+offset_right = 3.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="hotspot_corn_leaf" type="Button" parent="HotspotLayer" unique_id=318349931]
+layout_mode = 0
+offset_left = 1136.0
+offset_top = 920.0
+offset_right = 1260.0
+offset_bottom = 1008.0
+script = ExtResource("2_hotspot")
+hotspot_id = &"corn_leaf"
+display_label = "玉米叶"
+visual_asset_id = null
+visual_region = null
+
+[node name="hotspot_enter_town" type="Button" parent="HotspotLayer" unique_id=886217855]
+layout_mode = 0
+offset_left = 694.00006
+offset_top = 315.00003
+offset_right = 1140.2544
+offset_bottom = 687.04346
+script = ExtResource("2_hotspot")
+hotspot_id = &"enter_town"
+display_label = "进入 Santa Lucia"
+visual_asset_id = null
+visual_region = null

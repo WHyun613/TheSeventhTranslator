@@ -1,0 +1,197 @@
+[gd_scene format=3 uid="uid://biqnunv8toid3"]
+
+[ext_resource type="Script" uid="uid://clhb23cc87c7h" path="res://scripts/locations/location_view.gd" id="1"]
+[ext_resource type="Script" uid="uid://ciyiifs0vhx4e" path="res://scripts/locations/scene_hotspot.gd" id="2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hb78n"]
+bg_color = Color(0.14, 0.1, 0.06, 0.82)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.86, 0.65, 0.28, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kjgx3"]
+bg_color = Color(0.95, 0.68, 0.22, 0.3)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.78, 0.34, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ex1km"]
+bg_color = Color(0.72, 0.47, 0.12, 0.92)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.78, 0.34, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4o5kj"]
+bg_color = Color(0.08, 0.08, 0.08, 0.55)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.35, 0.35, 0.35, 0.75)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ijkt"]
+bg_color = Color(0.14, 0.1, 0.06, 0.82)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.86, 0.65, 0.28, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iag5h"]
+bg_color = Color(0.95, 0.68, 0.22, 0.3)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.78, 0.34, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_galbe"]
+bg_color = Color(0.72, 0.47, 0.12, 0.92)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.78, 0.34, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fybjr"]
+bg_color = Color(0.08, 0.08, 0.08, 0.55)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.35, 0.35, 0.35, 0.75)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Day02Woods" type="Control" unique_id=414063216]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+location_id = "day02_woods"
+background_asset_id = "bg_day02_woods"
+
+[node name="Fallback" type="ColorRect" parent="." unique_id=726536554]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.08, 0.16, 0.09, 1)
+
+[node name="FallbackLabel" type="Label" parent="Fallback" unique_id=1996305977]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -100.0
+offset_right = 400.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "day02_woods
+
+[ 全屏场景图待替换 ]
+bg_day02_woods"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Background" type="TextureRect" parent="." unique_id=1591914344]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="HotspotLayer" type="Control" parent="." unique_id=1968351750]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="hotspot_to_street" type="Button" parent="HotspotLayer" unique_id=647244458]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 250.0
+offset_right = 340.0
+offset_bottom = 950.0
+tooltip_text = "返回街道"
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_hb78n")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_kjgx3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ex1km")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_4o5kj")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ex1km")
+text = "返回街道"
+script = ExtResource("2")
+hotspot_id = &"to_street"
+display_label = "返回街道"
+
+[node name="hotspot_to_archive" type="Button" parent="HotspotLayer" unique_id=1368690728]
+layout_mode = 0
+offset_left = 1480.0
+offset_top = 220.0
+offset_right = 1900.0
+offset_bottom = 950.0
+tooltip_text = "前往档案室"
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_5ijkt")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_iag5h")
+theme_override_styles/hover = SubResource("StyleBoxFlat_galbe")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_fybjr")
+theme_override_styles/focus = SubResource("StyleBoxFlat_galbe")
+text = "前往档案室"
+script = ExtResource("2")
+hotspot_id = &"to_archive_entrance"
+display_label = "前往档案室"

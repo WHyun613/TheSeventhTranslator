@@ -1,0 +1,330 @@
+[gd_scene format=3 uid="uid://c05b2figxsf5t"]
+
+[ext_resource type="Script" uid="uid://clhb23cc87c7h" path="res://scripts/locations/location_view.gd" id="1_location"]
+[ext_resource type="Script" uid="uid://ciyiifs0vhx4e" path="res://scripts/locations/scene_hotspot.gd" id="2_hotspot"]
+[ext_resource type="Texture2D" uid="uid://cc6rhvtn6erl4" path="res://assets/backgrounds/day_01/room.png" id="2_ts07i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fk4d8"]
+bg_color = Color(0.14, 0.1, 0.06, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.86, 0.65, 0.28, 0)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hyqlk"]
+bg_color = Color(0.95, 0.68, 0.22, 0.3)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.78, 0.34, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yp1jk"]
+bg_color = Color(0.72, 0.47, 0.12, 0.18)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.78, 0.34, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ky2t"]
+bg_color = Color(0.08, 0.08, 0.08, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.35, 0.35, 0.35, 0)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i51hg"]
+bg_color = Color(0.14, 0.1, 0.06, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.86, 0.65, 0.28, 0)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w5fu4"]
+bg_color = Color(0.95, 0.68, 0.22, 0.3)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.78, 0.34, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bwskk"]
+bg_color = Color(0.72, 0.47, 0.12, 0.18)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.78, 0.34, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hmvh2"]
+bg_color = Color(0.08, 0.08, 0.08, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.35, 0.35, 0.35, 0)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hny2w"]
+bg_color = Color(0.14, 0.1, 0.06, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.86, 0.65, 0.28, 0)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yxr35"]
+bg_color = Color(0.95, 0.68, 0.22, 0.3)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.78, 0.34, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_27who"]
+bg_color = Color(0.72, 0.47, 0.12, 0.18)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.78, 0.34, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_frjih"]
+bg_color = Color(0.08, 0.08, 0.08, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.35, 0.35, 0.35, 0)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n1to7"]
+bg_color = Color(0.14, 0.1, 0.06, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.86, 0.65, 0.28, 0)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xoduc"]
+bg_color = Color(0.95, 0.68, 0.22, 0.3)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.78, 0.34, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_awyxr"]
+bg_color = Color(0.72, 0.47, 0.12, 0.18)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.78, 0.34, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8dcdh"]
+bg_color = Color(0.08, 0.08, 0.08, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.35, 0.35, 0.35, 0)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="TranslatorRoom" type="Control" unique_id=43280848]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_location")
+location_id = "translator_room"
+background_asset_id = "bg_translator_room"
+
+[node name="Fallback" type="ColorRect" parent="." unique_id=1991229579]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.16, 0.105, 0.065, 1)
+
+[node name="FallbackLabel" type="Label" parent="Fallback" unique_id=787032234]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -100.0
+offset_right = 360.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 34
+text = "translator_room
+
+[ 全屏场景图待替换 ]
+bg_translator_room"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Background" type="TextureRect" parent="." unique_id=1309413327]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_ts07i")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="HotspotLayer" type="Control" parent="." unique_id=476824929]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="hotspot_objective_paper" type="Button" parent="HotspotLayer" unique_id=1637591479]
+layout_mode = 0
+offset_left = 805.0
+offset_top = 610.0
+offset_right = 1055.0
+offset_bottom = 780.0
+tooltip_text = "玩家目标"
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_fk4d8")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_hyqlk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_yp1jk")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_2ky2t")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yp1jk")
+script = ExtResource("2_hotspot")
+hotspot_id = &"objective_paper"
+display_label = "玩家目标"
+
+[node name="hotspot_translator_desk" type="Button" parent="HotspotLayer" unique_id=122186422]
+layout_mode = 0
+offset_left = 387.0
+offset_top = 805.0
+offset_right = 1551.0
+offset_bottom = 920.0
+tooltip_text = "查看译者桌"
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_i51hg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_w5fu4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_bwskk")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_hmvh2")
+theme_override_styles/focus = SubResource("StyleBoxFlat_bwskk")
+script = ExtResource("2_hotspot")
+hotspot_id = &"translator_desk"
+display_label = "查看译者桌"
+
+[node name="hotspot_drawer" type="Button" parent="HotspotLayer" unique_id=489027831]
+layout_mode = 0
+offset_left = 229.0
+offset_top = 985.0
+offset_right = 537.0
+offset_bottom = 1060.0
+tooltip_text = "桌子抽屉"
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_hny2w")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yxr35")
+theme_override_styles/hover = SubResource("StyleBoxFlat_27who")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_frjih")
+theme_override_styles/focus = SubResource("StyleBoxFlat_27who")
+script = ExtResource("2_hotspot")
+hotspot_id = &"drawer"
+display_label = "桌子抽屉"
+
+[node name="hotspot_exit_to_street" type="Button" parent="HotspotLayer" unique_id=1923158210]
+visible = false
+layout_mode = 0
+offset_left = 1500.0
+offset_top = 260.0
+offset_right = 1880.0
+offset_bottom = 980.0
+tooltip_text = "前往小镇街道"
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_n1to7")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xoduc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_awyxr")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_8dcdh")
+theme_override_styles/focus = SubResource("StyleBoxFlat_awyxr")
+script = ExtResource("2_hotspot")
+hotspot_id = &"exit_to_street"
+display_label = "前往小镇街道"

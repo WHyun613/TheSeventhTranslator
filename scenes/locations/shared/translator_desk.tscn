@@ -1,0 +1,282 @@
+[gd_scene format=3 uid="uid://drw4kg21r1j4s"]
+
+[ext_resource type="Script" uid="uid://clhb23cc87c7h" path="res://scripts/locations/location_view.gd" id="1_location"]
+[ext_resource type="Script" uid="uid://ciyiifs0vhx4e" path="res://scripts/locations/scene_hotspot.gd" id="2_hotspot"]
+[ext_resource type="Texture2D" uid="uid://cujv6qxn0b4g7" path="res://assets/backgrounds/day_01/desk.png" id="2_u5yy5"]
+[ext_resource type="Texture2D" uid="uid://dmgjaxxsuqw78" path="res://assets/items/day_01/translator_desk_case_file.png" id="3_upic8"]
+[ext_resource type="Texture2D" uid="uid://cpotnfm4iw7sp" path="res://assets/items/day_01/translator_desk_dictionary.png" id="5_7bfhu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hjhd0"]
+bg_color = Color(0.14, 0.1, 0.06, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.86, 0.65, 0.28, 0)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ockut"]
+bg_color = Color(0.95, 0.68, 0.22, 0.3)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.78, 0.34, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_np58r"]
+bg_color = Color(0.72, 0.47, 0.12, 0.18)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.78, 0.34, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gu6x7"]
+bg_color = Color(0.08, 0.08, 0.08, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.35, 0.35, 0.35, 0)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xnbjw"]
+atlas = ExtResource("3_upic8")
+region = Rect2(500, 135, 550, 670)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2b38a"]
+bg_color = Color(0.14, 0.1, 0.06, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.86, 0.65, 0.28, 0)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_77xi4"]
+bg_color = Color(0.95, 0.68, 0.22, 0.3)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.78, 0.34, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xu426"]
+bg_color = Color(0.72, 0.47, 0.12, 0.18)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.78, 0.34, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0epy3"]
+bg_color = Color(0.08, 0.08, 0.08, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.35, 0.35, 0.35, 0)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e6ciq"]
+atlas = ExtResource("5_7bfhu")
+region = Rect2(1000, 240, 1600, 1700)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4r7jm"]
+bg_color = Color(0.14, 0.1, 0.06, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.86, 0.65, 0.28, 0)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a0m2u"]
+bg_color = Color(0.95, 0.68, 0.22, 0.3)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.78, 0.34, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bvqef"]
+bg_color = Color(0.72, 0.47, 0.12, 0.18)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.78, 0.34, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tfx6m"]
+bg_color = Color(0.08, 0.08, 0.08, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.35, 0.35, 0.35, 0)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="TranslatorDesk" type="Control" unique_id=1559568417]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_location")
+location_id = "translator_desk"
+background_asset_id = "bg_translator_desk"
+
+[node name="Fallback" type="ColorRect" parent="." unique_id=866234882]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.12, 0.075, 0.045, 1)
+
+[node name="FallbackLabel" type="Label" parent="Fallback" unique_id=1218576215]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -100.0
+offset_right = 360.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 34
+text = "translator_desk
+
+[ 全屏场景图待替换 ]
+bg_translator_desk"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Background" type="TextureRect" parent="." unique_id=868912563]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_u5yy5")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="HotspotLayer" type="Control" parent="." unique_id=1730526621]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="hotspot_case_file" type="Button" parent="HotspotLayer" unique_id=1726237661]
+layout_mode = 0
+offset_left = 500.0
+offset_top = 270.0
+offset_right = 860.0
+offset_bottom = 850.0
+tooltip_text = "卖盐老人案卷"
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_hjhd0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ockut")
+theme_override_styles/hover = SubResource("StyleBoxFlat_np58r")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_gu6x7")
+theme_override_styles/focus = SubResource("StyleBoxFlat_np58r")
+icon = SubResource("AtlasTexture_xnbjw")
+expand_icon = true
+script = ExtResource("2_hotspot")
+hotspot_id = &"case_file"
+display_label = "卖盐老人案卷"
+visual_asset_id = &"prop_translator_desk_case_file"
+visual_region = Rect2(500, 135, 550, 670)
+
+[node name="hotspot_dictionary" type="Button" parent="HotspotLayer" unique_id=770815579]
+layout_mode = 0
+offset_left = 990.0
+offset_top = 250.0
+offset_right = 1460.0
+offset_bottom = 850.0
+tooltip_text = "官方词典第四版"
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_2b38a")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_77xi4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_xu426")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_0epy3")
+theme_override_styles/focus = SubResource("StyleBoxFlat_xu426")
+icon = SubResource("AtlasTexture_e6ciq")
+expand_icon = true
+script = ExtResource("2_hotspot")
+hotspot_id = &"dictionary"
+display_label = "官方词典第四版"
+visual_asset_id = &"prop_translator_desk_dictionary"
+visual_region = Rect2(1000, 240, 1600, 1700)
+
+[node name="hotspot_return_room" type="Button" parent="HotspotLayer" unique_id=1919293780]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 175.0
+offset_right = 245.0
+offset_bottom = 900.0
+tooltip_text = "返回译者房间"
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_4r7jm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_a0m2u")
+theme_override_styles/hover = SubResource("StyleBoxFlat_bvqef")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_tfx6m")
+theme_override_styles/focus = SubResource("StyleBoxFlat_bvqef")
+script = ExtResource("2_hotspot")
+hotspot_id = &"translator_room"
+display_label = "返回译者房间"

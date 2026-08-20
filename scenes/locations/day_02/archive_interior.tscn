@@ -1,0 +1,332 @@
+[gd_scene format=3 uid="uid://cauxlbco1y21m"]
+
+[ext_resource type="Script" uid="uid://clhb23cc87c7h" path="res://scripts/locations/location_view.gd" id="1"]
+[ext_resource type="Script" uid="uid://ciyiifs0vhx4e" path="res://scripts/locations/scene_hotspot.gd" id="2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_srjg8"]
+bg_color = Color(0.14, 0.1, 0.06, 0.82)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.86, 0.65, 0.28, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cvsv1"]
+bg_color = Color(0.95, 0.68, 0.22, 0.3)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.78, 0.34, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m4srn"]
+bg_color = Color(0.72, 0.47, 0.12, 0.92)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.78, 0.34, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rooud"]
+bg_color = Color(0.08, 0.08, 0.08, 0.55)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.35, 0.35, 0.35, 0.75)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w1ibp"]
+bg_color = Color(0.14, 0.1, 0.06, 0.82)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.86, 0.65, 0.28, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_htxjs"]
+bg_color = Color(0.95, 0.68, 0.22, 0.3)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.78, 0.34, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oerea"]
+bg_color = Color(0.72, 0.47, 0.12, 0.92)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.78, 0.34, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vxq47"]
+bg_color = Color(0.08, 0.08, 0.08, 0.55)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.35, 0.35, 0.35, 0.75)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_raec4"]
+bg_color = Color(0.14, 0.1, 0.06, 0.82)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.86, 0.65, 0.28, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vl0ae"]
+bg_color = Color(0.95, 0.68, 0.22, 0.3)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.78, 0.34, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lm3du"]
+bg_color = Color(0.72, 0.47, 0.12, 0.92)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.78, 0.34, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y0hli"]
+bg_color = Color(0.08, 0.08, 0.08, 0.55)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.35, 0.35, 0.35, 0.75)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_68qkg"]
+bg_color = Color(0.14, 0.1, 0.06, 0.82)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.86, 0.65, 0.28, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tthmo"]
+bg_color = Color(0.95, 0.68, 0.22, 0.3)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.78, 0.34, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ws1bx"]
+bg_color = Color(0.72, 0.47, 0.12, 0.92)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.78, 0.34, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ckjoy"]
+bg_color = Color(0.08, 0.08, 0.08, 0.55)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.35, 0.35, 0.35, 0.75)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="ArchiveInterior" type="Control" unique_id=1877735560]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+location_id = "day02_archive_interior"
+background_asset_id = "bg_day02_archive_interior"
+
+[node name="Fallback" type="ColorRect" parent="." unique_id=1428631377]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.11, 0.085, 0.06, 1)
+
+[node name="FallbackLabel" type="Label" parent="Fallback" unique_id=843992278]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -100.0
+offset_right = 400.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "day02_archive_interior
+
+[ 全屏场景图待替换 ]
+bg_day02_archive_interior"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Background" type="TextureRect" parent="." unique_id=1659996853]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="HotspotLayer" type="Control" parent="." unique_id=1555380622]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="hotspot_paper_stack" type="Button" parent="HotspotLayer" unique_id=640851485]
+layout_mode = 0
+offset_left = 300.0
+offset_top = 650.0
+offset_right = 720.0
+offset_bottom = 1000.0
+tooltip_text = "散乱纸堆"
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_srjg8")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_cvsv1")
+theme_override_styles/hover = SubResource("StyleBoxFlat_m4srn")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_rooud")
+theme_override_styles/focus = SubResource("StyleBoxFlat_m4srn")
+text = "散乱纸堆"
+script = ExtResource("2")
+hotspot_id = &"paper_stack"
+display_label = "散乱纸堆"
+visual_asset_id = &"prop_day02_paper_stack"
+
+[node name="hotspot_old_map" type="Button" parent="HotspotLayer" unique_id=1830784031]
+layout_mode = 0
+offset_left = 900.0
+offset_top = 250.0
+offset_right = 1370.0
+offset_bottom = 720.0
+tooltip_text = "墙上的旧地图"
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_w1ibp")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_htxjs")
+theme_override_styles/hover = SubResource("StyleBoxFlat_oerea")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_vxq47")
+theme_override_styles/focus = SubResource("StyleBoxFlat_oerea")
+text = "墙上的旧地图"
+script = ExtResource("2")
+hotspot_id = &"old_map"
+display_label = "墙上的旧地图"
+visual_asset_id = &"prop_day02_old_map"
+
+[node name="hotspot_black_stamp" type="Button" parent="HotspotLayer" unique_id=1505640946]
+layout_mode = 0
+offset_left = 1450.0
+offset_top = 700.0
+offset_right = 1700.0
+offset_bottom = 980.0
+tooltip_text = "破旧黑章"
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_raec4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_vl0ae")
+theme_override_styles/hover = SubResource("StyleBoxFlat_lm3du")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_y0hli")
+theme_override_styles/focus = SubResource("StyleBoxFlat_lm3du")
+text = "破旧黑章"
+script = ExtResource("2")
+hotspot_id = &"black_stamp"
+display_label = "破旧黑章"
+visual_asset_id = &"prop_day02_black_stamp"
+
+[node name="hotspot_archive_exit" type="Button" parent="HotspotLayer" unique_id=1289094443]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 260.0
+offset_right = 280.0
+offset_bottom = 950.0
+tooltip_text = "离开档案室"
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_68qkg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tthmo")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ws1bx")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ckjoy")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ws1bx")
+text = "离开档案室"
+script = ExtResource("2")
+hotspot_id = &"archive_exit"
+display_label = "离开档案室"

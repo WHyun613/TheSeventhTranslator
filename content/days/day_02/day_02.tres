@@ -1,0 +1,285 @@
+[gd_resource type="Resource" script_class="DayDefinition" format=3 uid="uid://bdshupvh3v723"]
+
+[ext_resource type="Script" uid="uid://curfm688oc0qc" path="res://scripts/data/day_definition.gd" id="1_day"]
+
+[resource]
+script = ExtResource("1_day")
+day_id = &"day_02"
+display_name = "第二天"
+start_location = &"translator_desk"
+dialogues = {
+"day02_marina_glyph_followup": [{
+"expression": "neutral",
+"speaker": "玩家",
+"text": "话说起来，你是本地人吗？"
+}, {
+"expression": "neutral",
+"speaker": "Marina",
+"text": "算半个，但是我十来岁就去总督府上学了。除了会说这里的话，能认识一些字，其他的方面和外来人没什么区别。"
+}, {
+"expression": "neutral",
+"speaker": "玩家",
+"text": "你认识字？我其实怀疑官方词典对你们文字的解读有些偏差，一些地方的解释方式怪怪的。"
+}, {
+"expression": "neutral",
+"speaker": "Marina",
+"text": "什么地方？或许你可以给我看看，也许有些文字我认识。"
+}, {
+"expression": "neutral",
+"speaker": "玩家",
+"text": "......"
+}, {
+"expression": "neutral",
+"speaker": "玩家",
+"text": "下次吧，有机会我再来问你，现在我有点事。"
+}, {
+"expression": "neutral",
+"speaker": "Marina",
+"text": "好吧，我接下来的每天都会在这里等你，我很乐意为你…...为爷爷做些什么。"
+}],
+"day02_marina_intro": [{
+"expression": "urgent",
+"speaker": "Marina",
+"text": "昨天你的译文审核是关于一位老人吗？他身材比较瘦削，皮肤黝黑，身材不高。这是他的照片。"
+}, {
+"expression": "neutral",
+"speaker": "Marina",
+"text": "这位公公是我母亲的教父，我也一直将他当祖父看待，我知道他并没有非法越境。我希望我能够帮到他。我是这里的本地人你想要了解什么都可以来问我。"
+}, {
+"expression": "neutral",
+"speaker": "玩家",
+"text": "你知道从哪里查找Santa Lucia的边境吗？"
+}, {
+"expression": "neutral",
+"speaker": "Marina",
+"text": "档案室应该有更详细的地图，记录了SantaLucia边境变化的全过程。"
+}, {
+"expression": "neutral",
+"speaker": "玩家",
+"text": "边境变化？"
+}, {
+"expression": "neutral",
+"speaker": "Marina",
+"text": "我也只是小时候听母亲说的，关于这个我也不太清楚。"
+}],
+"day02_marina_leave": [{
+"expression": "urgent",
+"speaker": "Marina",
+"text": "这孩子......得把包还给他，你先去档案室，我马上就到。"
+}],
+"day02_marina_return": [{
+"expression": "neutral",
+"speaker": "Marina",
+"text": "我来了，那个孩子跑的太快了。"
+}, {
+"expression": "neutral",
+"speaker": "玩家",
+"text": "我已经从档案室回来了。"
+}, {
+"expression": "neutral",
+"speaker": "Marina",
+"text": "你找到地图了吗？是不是真的和母亲说的一样呢…..."
+}, {
+"expression": "neutral",
+"speaker": "玩家",
+"text": "我得去和现在的边界对比一下看看。"
+}],
+"day02_pickpocket": [{
+"expression": "Marina",
+"speaker": "神秘男孩",
+"text": "当心！那小孩在摸你的钱包！"
+}, {
+"expression": "neutral",
+"speaker": "神秘男孩",
+"text": "[迅速跑开]"
+}, {
+"expression": "urgent",
+"speaker": "Marina",
+"text": "街道的治安不太好，你得把钱包放在能看到的位置。"
+}, {
+"expression": "neutral",
+"speaker": "玩家",
+"text": "【你的钱包和一个破布袋子都躺在地上，袋子里的一张纸掉在外边】"
+}],
+"day02_tomas_briefing": [{
+"expression": "neutral",
+"speaker": "Tomas",
+"text": "从今天起，卖盐老人案进入详细复核。原住民案件实行五日审核：前四天核对证据，第五天作出审判。"
+}, {
+"expression": "neutral",
+"speaker": "Tomas",
+"text": "详细案卷已经放在桌上。按官方记录核对即可，不要被无关材料干扰。"
+}],
+"day02_verdict_approve": [{
+"expression": "yawn",
+"speaker": "Tomas",
+"text": "通过。既然你认可官方记录，就继续按流程归档。"
+}],
+"day02_verdict_question": [{
+"expression": "concerned",
+"speaker": "Tomas",
+"text": "你又提交了存疑？"
+}, {
+"expression": "concerned",
+"speaker": "Tomas",
+"text": "……旧边界和文字证据能够相互印证。我会把这两项异议一并上报。"
+}]
+}
+documents = {
+"conclusion_day02_border_changed_doc": {
+"asset_id": "conclusion_day02_border_changed",
+"body": "案卷中的现行田地照片与旧地图相互印证：边界后来向外移动，老人的土地才被纳入 Santa Lucia。",
+"title": "结论 03：边界发生变化"
+},
+"conclusion_day02_hand_protects_doc": {
+"asset_id": "conclusion_day02_hand_protects",
+"body": "小男孩的画与旧信相互印证：灰碑文中的【手掌】不是占有，而是守护。",
+"title": "结论 02：手掌表示守护"
+},
+"day02_boy_drawing": {
+"asset_id": "item_day02_boy_drawing",
+"body": "画面中，一只巨大的手掌挡在玉米田上方，像是在阻止红色雨滴落下。",
+"title": "小男孩的画"
+},
+"day02_case_hint": {
+"asset_id": "doc_day02_case_hint",
+"body": "要判断老人是否越界，需要寻找过去土地边界的记录。你可以直接认可官方结论，也可以离开译者房间前往档案室调查。",
+"title": "调查目标"
+},
+"day02_elder_photo": {
+"asset_id": "doc_day02_elder_photo",
+"body": "Marina 带来的一张旧照片。老人站在一片玉米田旁。",
+"title": "卖盐老人照片"
+},
+"day02_field_photo": {
+"asset_id": "item_day02_field_photo",
+"body": "",
+"title": "案卷附件：田地照片"
+},
+"day02_old_letter": {
+"asset_id": "item_day02_old_letter",
+"body": "旧信反复提到：‘伸开的手掌会护住种子，挡住从天而降的血。’",
+"title": "档案室旧信"
+},
+"day02_old_map": {
+"asset_id": "item_day02_old_map",
+"body": "旧地图上的国有土地边界比案卷照片中的现行边界更小；老人的玉米田原本位于边界之外。",
+"title": "Santa Lucia 旧地图"
+},
+"day02_wallet": {
+"asset_id": "item_day02_wallet",
+"body": "一个磨旧的钱包。它是你的",
+"title": "你的钱包"
+},
+"official_dictionary": {
+"asset_id": "doc_official_dictionary_v4",
+"body": "",
+"page_asset_ids": ["doc_official_dictionary_v4", "doc_dictionary_hand_unlocked"],
+"title": "官方词典第四版"
+}
+}
+items = {
+"conclusion_day02_border_changed": {
+"asset_id": "conclusion_day02_border_changed",
+"document_id": "conclusion_day02_border_changed_doc",
+"name": "结论：边界发生变化",
+"reasoning": false,
+"tooltip": "由现行田地照片与旧地图得到的固定结论。"
+},
+"conclusion_day02_hand_protects": {
+"asset_id": "conclusion_day02_hand_protects",
+"document_id": "conclusion_day02_hand_protects_doc",
+"name": "结论：手掌表示守护",
+"reasoning": false,
+"tooltip": "由画与旧信得到的固定结论。"
+},
+"item_day02_boy_drawing": {
+"asset_id": "item_day02_boy_drawing",
+"document_id": "day02_boy_drawing",
+"name": "小男孩的画",
+"reasoning": true,
+"tooltip": "手掌似乎在保护玉米田。"
+},
+"item_day02_field_photo": {
+"asset_id": "item_day02_field_photo",
+"document_id": "day02_field_photo",
+"name": "案卷中的田地照片",
+"reasoning": true,
+"tooltip": "标有现行土地边界的案卷附件。"
+},
+"item_day02_old_letter": {
+"asset_id": "item_day02_old_letter",
+"document_id": "day02_old_letter",
+"name": "档案室旧信",
+"reasoning": true,
+"tooltip": "信中记录了手掌与守护的联系。"
+},
+"item_day02_old_map": {
+"asset_id": "item_day02_old_map",
+"document_id": "day02_old_map",
+"name": "Santa Lucia 旧地图",
+"reasoning": true,
+"tooltip": "标有过去土地边界的地图。"
+},
+"item_day02_wallet": {
+"asset_id": "item_day02_wallet",
+"document_id": "day02_wallet",
+"name": "你的钱包",
+"reasoning": false,
+"tooltip": "你的钱包"
+}
+}
+locations = {
+"day02_archive_entrance": {
+"asset_id": "bg_day02_archive_entrance",
+"description": "一扇沉重的旧门，今天并没有上锁。",
+"title": "档案室大门"
+},
+"day02_archive_interior": {
+"asset_id": "bg_day02_archive_interior",
+"description": "纸堆、旧地图和一枚用途不明的黑章散落在昏暗房间里。",
+"title": "档案室内部"
+},
+"day02_street": {
+"asset_id": "bg_day02_street",
+"description": "Marina 与神秘男孩刚刚在这里发生冲突。",
+"title": "小镇街道"
+},
+"day02_woods": {
+"asset_id": "bg_day02_woods",
+"description": "档案室藏在树林另一侧。",
+"title": "镇外树林"
+},
+"translator_desk": {
+"asset_id": "bg_translator_desk",
+"description": "第二天的详细案卷与官方词典摆在桌面上。",
+"title": "译者桌"
+},
+"translator_room": {
+"asset_id": "bg_translator_room",
+"description": "通向室外的大门已经可以使用。",
+"title": "译者房间"
+}
+}
+case_data = {
+"attachment_action_id": "day02_take_field_photo",
+"case_id": "case_salt_elder_day02",
+"official_translation": "老人私占公田",
+"old_text": "【手掌】【三角】",
+"person": "卖盐老人",
+"profession": "原住民农户、盐商",
+"question_locked_text": "存疑章尚不可用：需要证明文字含义与土地边界都存在问题。",
+"question_ready_text": "两项结论已经齐全：可以附证据提交存疑。",
+"question_required_conclusions": ["conclusion_day02_hand_protects", "conclusion_day02_border_changed"],
+"recommendation": "确认越境私种玉米事实成立",
+"title": "卖盐老人详细案件信息"
+}
+puzzle_data = {
+"recipes": [{
+"conclusion_id": "conclusion_day02_hand_protects",
+"required_clues": ["item_day02_boy_drawing", "item_day02_old_letter"]
+}, {
+"conclusion_id": "conclusion_day02_border_changed",
+"required_clues": ["item_day02_field_photo", "item_day02_old_map"]
+}]
+}
