@@ -42,4 +42,3 @@ func setup(id: String, texture: Texture2D, display_name: String, tint: Color, mi
 		_placeholder_label.modulate = Color(0.72, 0.66, 0.56)
 		_placeholder_label.add_theme_font_size_override("font_size", 20)
 		box.add_child(_placeholder_label)
-

@@ -44,4 +44,3 @@ func load_state() -> Dictionary:
 	var parsed: Variant = JSON.parse_string(file.get_as_text())
 	file.close()
 	return parsed as Dictionary if parsed is Dictionary else {}
-

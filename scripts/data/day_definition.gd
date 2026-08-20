@@ -10,4 +10,3 @@ extends Resource
 @export var locations: Dictionary = {}
 @export var case_data: Dictionary = {}
 @export var puzzle_data: Dictionary = {}
-

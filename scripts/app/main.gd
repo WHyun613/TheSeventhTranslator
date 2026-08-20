@@ -3,7 +3,6 @@ extends Control
 const AssetFrameScene := preload("res://scripts/ui/asset_frame.gd")
 const DialoguePanelScene := preload("res://scripts/ui/dialogue_panel.gd")
 const DocumentViewerScene := preload("res://scripts/ui/document_viewer.gd")
-const DictionaryTimelinePanelScene := preload("res://scripts/ui/dictionary_timeline_panel.gd")
 const InventoryPanelScene := preload("res://scripts/ui/inventory_panel.gd")
 const ReasoningBoardScene := preload("res://scripts/ui/reasoning_board.gd")
 const CaseReviewPanelScene := preload("res://scripts/ui/case_review_panel.gd")
@@ -39,7 +38,6 @@ var _summary_result: RichTextLabel
 
 var _dialogue: DialoguePanel
 var _document_viewer: DocumentViewer
-var _dictionary_timeline: DictionaryTimelinePanel
 var _inventory: InventoryPanel
 var _reasoning: ReasoningBoard
 var _case_review: CaseReviewPanel
@@ -363,10 +361,6 @@ func _build_centered_screen(title_text: String) -> Control:
 
 
 func _build_overlays() -> void:
-	_dictionary_timeline = DictionaryTimelinePanelScene.new() as DictionaryTimelinePanel
-	_dictionary_timeline.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	_dictionary_timeline.closed.connect(_on_dictionary_timeline_closed)
-	add_child(_dictionary_timeline)
 	_document_viewer = DocumentViewerScene.new() as DocumentViewer
 	_document_viewer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_document_viewer.closed.connect(_on_document_closed)
@@ -388,9 +382,6 @@ func _build_overlays() -> void:
 	_settings = SettingsPanelScene.new() as SettingsPanel
 	_settings.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_settings.settings_applied.connect(_on_settings_applied)
-	# DEV DAY 2 SHORTCUT START — 删除此连接及底部同名处理函数即可移除测试入口。
-	_settings.debug_day2_requested.connect(_debug_start_day_two)
-	# DEV DAY 2 SHORTCUT END
 	add_child(_settings)
 	_dialogue_blocker = ColorRect.new()
 	_dialogue_blocker.color = Color(0.01, 0.01, 0.01, 0.38)
@@ -549,7 +540,7 @@ func _refresh_location() -> void:
 		var case_hotspot := _current_location_view.hotspot_by_id("case_file")
 		if case_hotspot != null:
 			case_hotspot.visual_asset_id = &"prop_day02_case_detailed"
-			case_hotspot.visual_region = Rect2()
+	
 	_current_location_view.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_current_location_view.hotspot_activated.connect(_on_scene_hotspot_activated)
 	var asset_id := String(location.get("asset_id", ""))
@@ -658,21 +649,14 @@ func _start_onboarding() -> void:
 
 
 func _open_dictionary() -> void:
-	var document := content.document("official_dictionary")
-	if document.is_empty():
-		_toast("未找到官方词典配置。")
-		return
-	_dictionary_timeline.open_dictionary(
-		document,
-		content.ASSET_CATALOG,
-		int(state.data.get("dictionary_unlocked_stage", 1)),
-		int(state.data.get("dictionary_current_page", 0))
-	)
+	_open_document("official_dictionary")
 
 
 func _open_objective() -> void:
 	_open_document("player_objective")
 
+func _open_guideboard() -> void:
+	_open_document("hotspot_guideboard")
 
 func _open_inventory() -> void:
 	_inventory.open_inventory(state.data["inventory"] as Array, content.all_items(), content.ASSET_CATALOG)
@@ -694,9 +678,6 @@ func _on_inventory_item_requested(item_id: String) -> void:
 
 
 func _open_document(document_id: String) -> void:
-	if document_id == "official_dictionary":
-		_open_dictionary()
-		return
 	var document := content.document(document_id)
 	if document.is_empty():
 		_toast("未找到文档：%s" % document_id)
@@ -704,6 +685,8 @@ func _open_document(document_id: String) -> void:
 	var asset_id := String(document.get("asset_id", ""))
 	if document.has("page_asset_ids"):
 		var page_asset_ids := (document.get("page_asset_ids", []) as Array).duplicate()
+		if document_id == "official_dictionary" and not state.has_conclusion("conclusion_day02_hand_protects") and page_asset_ids.size() > 1:
+			page_asset_ids.resize(1)
 		_document_viewer.open_image_document(
 			document_id,
 			String(document.get("title", document_id)),
@@ -754,23 +737,6 @@ func _on_document_closed(document_id: String) -> void:
 	elif document_id == "old_text" and _drawer_document_chain:
 		_drawer_document_chain = false
 		_open_document("marina_note")
-
-
-func _on_dictionary_timeline_closed(current_page: int) -> void:
-	state.data["dictionary_current_page"] = current_page
-	_auto_save()
-	_on_document_closed("official_dictionary")
-
-
-# 剧情任务统一调用这个接口。D3 已知任务与未来未定任务不应直接操作词典 UI。
-func unlock_dictionary_stage(stage: int) -> void:
-	var previous := int(state.data.get("dictionary_unlocked_stage", 1))
-	var next_stage := clampi(maxi(previous, stage), 1, 3)
-	if next_stage == previous:
-		return
-	state.data["dictionary_unlocked_stage"] = next_stage
-	_auto_save()
-	_toast("官方词典的时间标志解锁了新的刻度。")
 
 
 func _start_case_intro() -> void:
@@ -948,6 +914,9 @@ func _handle_day02_hotspot(hotspot_id: String) -> void:
 		"archive_exit": _go_day02_location("day02_archive_entrance")
 		"boy_drawing": _take_day02_item("item_day02_boy_drawing", "获得“小男孩的画”。")
 		"wallet": _take_day02_item("item_day02_wallet", "捡起 Marina 的钱包。")
+		"guideboard":
+			_auto_save()
+			_toast("右侧前往档案室")
 		"cloth_bag":
 			state.set_flag("day02_bag_seen")
 			_auto_save()
@@ -1139,16 +1108,6 @@ func _on_settings_applied(new_settings: Dictionary) -> void:
 		settings_service.data[key] = new_settings[key]
 	settings_service.save_settings()
 	_toast("设置已保存。")
-
-
-# DEV DAY 2 SHORTCUT START — 独立测试入口，不参与正式日程推进。
-func _debug_start_day_two() -> void:
-	state.reset()
-	state.set_flag("day01_complete")
-	state.add_item("item_official_dictionary_v4")
-	state.add_item("item_player_objective")
-	_show_day_two()
-# DEV DAY 2 SHORTCUT END
 
 
 func _return_to_menu() -> void:
