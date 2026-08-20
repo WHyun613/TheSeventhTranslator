@@ -13,6 +13,8 @@ var _character_progress := 0.0
 var _speaker_label: Label
 var _text_label: RichTextLabel
 var _continue_button: Button
+var _raw_text := ""
+var _hover_translation := ""
 
 
 func _ready() -> void:
@@ -42,6 +44,9 @@ func _build_ui() -> void:
 	_text_label.custom_minimum_size = Vector2(0, 145)
 	_text_label.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_text_label.add_theme_font_size_override("normal_font_size", 30)
+	_text_label.mouse_default_cursor_shape = Control.CURSOR_HELP
+	_text_label.mouse_entered.connect(_show_hover_translation)
+	_text_label.mouse_exited.connect(_restore_raw_text)
 	content.add_child(_text_label)
 	_continue_button = Button.new()
 	_continue_button.text = "继续  ▶"
@@ -78,7 +83,10 @@ func _advance() -> void:
 	var speaker := String(line.get("speaker", ""))
 	var expression := String(line.get("expression", "neutral"))
 	_speaker_label.text = speaker
-	_text_label.text = String(line.get("text", ""))
+	_raw_text = String(line.get("text", ""))
+	_hover_translation = String(line.get("hover_translation", ""))
+	_text_label.tooltip_text = "悬停查看译文" if not _hover_translation.is_empty() else ""
+	_text_label.text = _raw_text
 	_text_label.visible_characters = 0
 	_character_progress = 0.0
 	_typing = true
@@ -95,3 +103,19 @@ func _process(delta: float) -> void:
 		_text_label.visible_characters = -1
 		_typing = false
 		_continue_button.text = "继续  ▶"
+
+
+func _show_hover_translation() -> void:
+	if _hover_translation.is_empty():
+		return
+	_typing = false
+	_text_label.text = "[color=#e8c879]译文：[/color]" + _hover_translation
+	_text_label.visible_characters = -1
+	_continue_button.text = "继续  ▶"
+
+
+func _restore_raw_text() -> void:
+	if _hover_translation.is_empty():
+		return
+	_text_label.text = _raw_text
+	_text_label.visible_characters = -1

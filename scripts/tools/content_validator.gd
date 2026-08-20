@@ -12,6 +12,8 @@ static func validate_day(day: DayDefinition, catalog: AssetCatalog) -> PackedStr
 	var required_dialogues := ["coachman_intro", "tomas_onboarding", "tomas_case_intro", "tomas_verdict_approve", "tomas_verdict_question"]
 	if String(day.day_id) == "day_02":
 		required_dialogues = ["day02_tomas_briefing", "day02_marina_intro", "day02_pickpocket", "day02_marina_leave", "day02_marina_return", "day02_verdict_approve", "day02_verdict_question"]
+	elif String(day.day_id) == "day_03":
+		required_dialogues = ["day03_tomas_briefing", "day03_marina_review", "day03_marina_detention_plan", "day03_elder_warning", "day03_elder_agreement", "day03_verdict_approve", "day03_verdict_question"]
 	for dialogue_id in required_dialogues:
 		if not day.dialogues.has(dialogue_id) or (day.dialogues[dialogue_id] as Array).is_empty():
 			issues.append("缺少必需对白：%s" % dialogue_id)

@@ -132,6 +132,7 @@ func open_case(case_data: Dictionary, known_conclusions: Array, catalog: AssetCa
 		+ "[b]译者复核：[/b]请选择一枚语义印章。"
 	)
 	_attachment_button.visible = not String(case_data.get("attachment_action_id", "")).is_empty()
+	_attachment_button.text = String(case_data.get("attachment_label", "查看案卷附件"))
 	_attachment_button.set_meta("action_id", String(case_data.get("attachment_action_id", "")))
 	_approve_button.disabled = false
 	_question_button.disabled = not has_required_evidence

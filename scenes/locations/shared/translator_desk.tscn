@@ -95,3 +95,15 @@ offset_bottom = 900.0
 script = ExtResource("2_hotspot")
 hotspot_id = &"translator_room"
 display_label = "返回译者房间"
+
+[node name="hotspot_camera" type="Button" parent="HotspotLayer"]
+visible = false
+layout_mode = 0
+offset_left = 1510.0
+offset_top = 610.0
+offset_right = 1810.0
+offset_bottom = 900.0
+script = ExtResource("2_hotspot")
+hotspot_id = &"camera"
+display_label = "记录相机"
+visual_asset_id = &"prop_day03_camera"

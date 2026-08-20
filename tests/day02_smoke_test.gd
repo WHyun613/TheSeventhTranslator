@@ -44,6 +44,7 @@ func _run() -> void:
 	_finish_dialogues(main)
 	_check(bool(main.state.flag("day02_case_received", false)), "Tomas 对话后没有交付详细案卷。")
 	_close_document(main)
+	_check(main._tutorial_label.text != "打开译者桌上的详细案卷，取得田地照片。", "已删除的案卷 review 提示仍然显示。")
 
 	main._current_location_view.hotspot_by_id("case_file").pressed.emit()
 	_check(main._case_review.visible, "详细案卷热点没有打开案件界面。")
@@ -60,8 +61,14 @@ func _run() -> void:
 	_close_document(main)
 	_finish_dialogues(main)
 	_check(bool(main.state.flag("day02_street_event_complete", false)), "街道扒窃事件没有完整结束。")
+	_check(main._current_location_view.hotspot_by_id("boy_drawing").icon != null, "小男孩的画没有显示场景图片。")
+	_check(main._current_location_view.hotspot_by_id("wallet").icon != null, "钱包没有显示场景图片。")
+	_check(main._current_location_view.hotspot_by_id("cloth_bag").icon != null, "破布袋没有显示场景图片。")
 
 	main._current_location_view.hotspot_by_id("boy_drawing").pressed.emit()
+	_check(main._document_viewer._content_grid.columns == 1, "小男孩的画没有切换为大图加下方说明布局。")
+	_check(main._document_viewer._art_panel.custom_minimum_size.x >= 900.0, "小男孩的画详情图没有占据文档主体宽度。")
+	_check(main._document_viewer._body_label.visible, "小男孩的画下方说明文字被隐藏。")
 	_close_document(main)
 	main._current_location_view.hotspot_by_id("wallet").pressed.emit()
 	_close_document(main)
@@ -101,7 +108,8 @@ func _run() -> void:
 	_finish_dialogues(main)
 	_check(bool(main.state.flag("day02_complete", false)), "存疑路线没有完成 Day 2。")
 	_check(int(main.state.data["case_understanding"]) == 1, "Day 2 存疑路线没有累计理解度。")
-	_check(main._day_two_screen.visible, "Day 2 结束后没有进入 Day 3 占位页。")
+	_check(String(main.state.data["current_day"]) == "day_03", "Day 2 结束后没有进入 Day 3。")
+	_check(main._game_screen.visible, "Day 2 结束后没有显示 Day 3 游戏场景。")
 
 	var migrated := GameState.new()
 	migrated.load_from_dict({"save_version":1,"current_day":"day_01","current_location":"translator_room","case_understanding":1,"case_verdict":"QUESTION","flags":{},"inventory":[],"conclusions":[]})

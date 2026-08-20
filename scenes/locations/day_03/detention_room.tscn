@@ -1,0 +1,200 @@
+[gd_scene format=3 uid="uid://c78mhi3xjvku0"]
+
+[ext_resource type="Script" uid="uid://clhb23cc87c7h" path="res://scripts/locations/location_view.gd" id="1_location"]
+[ext_resource type="Script" uid="uid://ciyiifs0vhx4e" path="res://scripts/locations/scene_hotspot.gd" id="2_hotspot"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5x1p4"]
+bg_color = Color(0.14, 0.1, 0.06, 0.82)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.86, 0.65, 0.28, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u0m50"]
+bg_color = Color(0.95, 0.68, 0.22, 0.3)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.78, 0.34, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6h2l1"]
+bg_color = Color(0.72, 0.47, 0.12, 0.92)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.78, 0.34, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i7aul"]
+bg_color = Color(0.08, 0.08, 0.08, 0.55)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.35, 0.35, 0.35, 0.75)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rr6so"]
+bg_color = Color(0.14, 0.1, 0.06, 0.82)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.86, 0.65, 0.28, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ysbl5"]
+bg_color = Color(0.95, 0.68, 0.22, 0.3)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.78, 0.34, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_finte"]
+bg_color = Color(0.72, 0.47, 0.12, 0.92)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.78, 0.34, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tflfi"]
+bg_color = Color(0.08, 0.08, 0.08, 0.55)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.35, 0.35, 0.35, 0.75)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Day03DetentionRoom" type="Control" unique_id=1485975614]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_location")
+location_id = "day03_detention_room"
+background_asset_id = "bg_day03_detention_room"
+
+[node name="Fallback" type="ColorRect" parent="." unique_id=1632790053]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.08, 0.075, 0.065, 1)
+
+[node name="FallbackLabel" type="Label" parent="Fallback" unique_id=1990010341]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -420.0
+offset_top = -100.0
+offset_right = 420.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "day03_detention_room
+
+[ 全屏场景图待替换 ]
+bg_day03_detention_room"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Background" type="TextureRect" parent="." unique_id=604245539]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="HotspotLayer" type="Control" parent="." unique_id=1679138019]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="hotspot_elder_agreement" type="Button" parent="HotspotLayer" unique_id=2086656124]
+visible = false
+layout_mode = 0
+offset_left = 760.0
+offset_top = 420.0
+offset_right = 1220.0
+offset_bottom = 900.0
+tooltip_text = "老人保存的旧土地协议"
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_5x1p4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_u0m50")
+theme_override_styles/hover = SubResource("StyleBoxFlat_6h2l1")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_i7aul")
+theme_override_styles/focus = SubResource("StyleBoxFlat_6h2l1")
+text = "老人保存的旧土地协议"
+script = ExtResource("2_hotspot")
+hotspot_id = &"elder_agreement"
+display_label = "老人保存的旧土地协议"
+visual_asset_id = &"prop_day03_elder_agreement"
+
+[node name="hotspot_to_street" type="Button" parent="HotspotLayer" unique_id=1874013338]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 220.0
+offset_right = 300.0
+offset_bottom = 930.0
+tooltip_text = "返回街道"
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_rr6so")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ysbl5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_finte")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_tflfi")
+theme_override_styles/focus = SubResource("StyleBoxFlat_finte")
+text = "返回街道"
+script = ExtResource("2_hotspot")
+hotspot_id = &"to_street"
+display_label = "返回街道"

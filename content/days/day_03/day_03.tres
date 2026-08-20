@@ -1,0 +1,111 @@
+[gd_resource type="Resource" script_class="DayDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/day_definition.gd" id="1_day"]
+
+[resource]
+script = ExtResource("1_day")
+day_id = &"day_03"
+display_name = "第三天"
+start_location = &"translator_desk"
+dialogues = {
+"day03_tomas_briefing": [
+{"speaker":"Tomas","expression":"neutral","text":"昨天的译注我已经看到了。虽然你对边界提出了一些疑问，行政机关已经补充了《对原住民的告知和补偿协议》。"},
+{"speaker":"Tomas","expression":"neutral","text":"被告三年前已经阅读并按了手印。你的关注重点应当是译文和《官方词典第四版》是否一致。今天下班前归档，别耽误后天的终审。"}
+],
+"day03_marina_review": [
+{"speaker":"Marina","expression":"neutral","text":"你好啊。官方又给了你新的解释，对吧？"},
+{"speaker":"玩家","expression":"neutral","text":"是的，但这份新证据似乎也有问题。"},
+{"speaker":"Marina","expression":"neutral","text":"把原文给我看看……和我想的一样，官方翻译时把缺口圆略过去了。"}
+],
+"day03_marina_detention_plan": [
+{"speaker":"玩家","expression":"neutral","text":"那么老人当时看到的信息到底是什么？"},
+{"speaker":"Marina","expression":"neutral","text":"你有带记录设备吗？我们去看看就知道了。警卫等下会换班，老人就在临时羁押处。"}
+],
+"day03_elder_warning": [
+{"speaker":"老人","expression":"neutral","text":"RSdsufcoiaAFHLAEUCFNLLA……","hover_translation":"你疯了吗？你怎么敢到这里来？要是被殖民办的巡警抓到，他们会把你流放的。快走，孩子，快离开这里。"}
+],
+"day03_elder_agreement": [
+{"speaker":"老人","expression":"neutral","text":"dasjdnxasiuhduiwea……","hover_translation":"孩子，你放心。他们弄错了，这是我们三年前的文件，上面清楚写着官方没有禁止继续种植。只要终审时提交文件，一切就结束了。"},
+{"speaker":"Marina","expression":"neutral","text":"shcxiasuhdchaisdh……","hover_translation":"没事的，阿公。这是新来的译者，我们会给您的文件拍照备份。审判那天，大家就能看到真相。"},
+{"speaker":"旁白","expression":"neutral","text":"走廊深处传来巡警的脚步声。你们必须尽快完成记录。"}
+],
+"day03_verdict_approve": [
+{"speaker":"Tomas","expression":"yawn","text":"很好。既然你认可官方记录，就按流程归档。你的工作就是这么简单。"}
+],
+"day03_verdict_question": [
+{"speaker":"Tomas","expression":"concerned","text":"什么？你说三年前的官方词典和现在不一样？这意味着你在指控整个审查署犯下行政欺诈。"},
+{"speaker":"Tomas","expression":"concerned","text":"你不会真的以为自己在帮助那位老人吧？"}
+],
+"day03_verdict_question_submitted": [
+{"speaker":"Tomas","expression":"concerned","text":"很好。明天上边会为你开放更深层的档案库权限。希望你在那堆旧档案里仍保持今天的坚定。"}
+]
+}
+documents = {
+"day03_official_agreement": {
+"title":"对原住民的告知和补偿协议",
+"asset_id":"doc_day03_official_agreement",
+"body":"[font_size=34]边境土地调整协议[/font_size]\n\n原文：【三角】【缺口圆（被划掉）】【权杖】【种子】……\n官方译文：土地收归国有，（你们）没有权力播种。\n\n违约惩罚：违规耕作产物没收，违法人流放。\n安置补偿：凭本协议、手写官话申请书及帝国户籍，可领取抚恤金 1000 金。\n签约人：【红指印】\n\n[color=#d7a955]被划掉的半个缺口圆似乎值得检查。[/color]",
+"action_id":"day03_inspect_gap_circle",
+"action_label":"检查被划掉的缺口圆"
+},
+"day03_elder_agreement": {
+"title":"老人保存的旧土地协议",
+"asset_id":"doc_day03_elder_agreement",
+"body":"[font_size=34]边境土地调整协议[/font_size]\n\n原文：【三角】【缺口圆】【权杖】【种子】……\n译文：土地收归国有，（你们）有权播种。\n\n其余条款与官方版本一致。除第一行原住民文外，其他内容均由殖民署官话写成。",
+"action_id":"day03_capture_elder_agreement",
+"action_label":"使用相机拍摄协议"
+},
+"day03_elder_agreement_photo": {"title":"老人旧协议照片","asset_id":"doc_day03_elder_agreement_photo","body":"照片完整记录了老人保存的三年前协议。关键原文中的缺口圆没有被划掉，殖民署官话译文为“有权播种”。"},
+"day03_current_dictionary_photo": {"title":"当前官方词典照片","asset_id":"doc_day03_current_dictionary_photo","body":"《官方词典第四版》的当前页面没有收录缺口圆。"},
+"day03_historical_dictionary_photo": {"title":"三年前官方词典照片","asset_id":"doc_day03_historical_dictionary_photo","body":"三年前的官方词典明确记录：缺口圆表示否定，即“没有”。"},
+"conclusion_day03_history_doc": {"title":"结论 04：历史词典可供查证","asset_id":"conclusion_day03_dictionary_history_available","body":"官方协议与老人保存的协议互相矛盾。必须检查三年前的官方词典，确认关键字形当时的记录。"},
+"conclusion_day03_tampered_doc": {"title":"结论 05：官方词典被修改","asset_id":"conclusion_day03_dictionary_tampered","body":"当前词典、历史词典与 Marina 的自然语言纸条共同证明：缺口圆曾明确表示“没有”，但该条目后来被删除，针对老人的核心罪名不存在。"},
+"marina_note": {"title":"mari 留下的纸条","asset_id":"item_day01_marina_note","body":"缺口圆不是装饰，它表示没有。\n\n—— mari"},
+"official_dictionary": {
+"title":"官方词典第四版",
+"asset_id":"doc_official_dictionary_v4",
+"body":"",
+"timeline_marker_asset_id":"ui_dictionary_time_marker",
+"timeline_track_asset_id":"ui_dictionary_time_track",
+"timeline_page_asset_ids":["doc_official_dictionary_v4","doc_dictionary_timeline_02","doc_dictionary_timeline_03"],
+"timeline_transition_asset_ids":{"1_to_2":"anim_dictionary_01_to_02","2_to_1":"anim_dictionary_02_to_01","2_to_3":"anim_dictionary_02_to_03","3_to_2":"anim_dictionary_03_to_02"},
+"timeline_page_action_id":"day03_capture_dictionary_page",
+"timeline_page_action_label":"使用相机拍摄当前时间页"
+}
+}
+items = {
+"item_day03_camera":{"name":"记录相机","asset_id":"item_day03_camera","reasoning":false,"tooltip":"可为关键文书和词典时间页拍照备份。"},
+"item_day03_official_agreement":{"name":"官方持有的补偿协议","asset_id":"item_day03_official_agreement","document_id":"day03_official_agreement","reasoning":true,"tooltip":"缺口圆被划掉的官方版本。"},
+"item_day03_elder_agreement_photo":{"name":"老人旧协议照片","asset_id":"item_day03_elder_agreement_photo","document_id":"day03_elder_agreement_photo","reasoning":true,"tooltip":"三年前的协议写着老人有权播种。"},
+"item_day03_current_dictionary_photo":{"name":"当前官方词典照片","asset_id":"item_day03_current_dictionary_photo","document_id":"day03_current_dictionary_photo","reasoning":true,"tooltip":"当前版本没有收录缺口圆。"},
+"item_day03_historical_dictionary_photo":{"name":"三年前官方词典照片","asset_id":"item_day03_historical_dictionary_photo","document_id":"day03_historical_dictionary_photo","reasoning":true,"tooltip":"历史版本记录缺口圆表示没有。"},
+"item_day01_marina_note":{"name":"mari 留下的纸条","asset_id":"item_day01_marina_note","document_id":"marina_note","reasoning":true,"tooltip":"自然语言确认：缺口圆表示没有。"},
+"conclusion_day03_dictionary_history_available":{"name":"结论 04：历史词典可供查证","asset_id":"conclusion_day03_dictionary_history_available","document_id":"conclusion_day03_history_doc","reasoning":false,"tooltip":"新旧协议互相矛盾，需要查看历史词典。"},
+"conclusion_day03_dictionary_tampered":{"name":"结论 05：官方词典被修改","asset_id":"conclusion_day03_dictionary_tampered","document_id":"conclusion_day03_tampered_doc","reasoning":false,"tooltip":"三项证据共同证明关键词条被删除。"}
+}
+locations = {
+"translator_desk":{"title":"译者桌","description":"D3 补充案卷、记录相机与官方词典都放在桌面上。","asset_id":"bg_translator_desk"},
+"translator_room":{"title":"译者房间","description":"从这里可以前往街道调查。","asset_id":"bg_translator_room"},
+"day02_street":{"title":"小镇街道","description":"Marina 在这里等待你查看新的协议。","asset_id":"bg_day02_street"},
+"day03_detention_room":{"title":"临时羁押室","description":"老人被关在栏杆后，巡警随时可能回来。","asset_id":"bg_day03_detention_room"}
+}
+case_data = {
+"case_id":"case_salt_elder_day03",
+"title":"卖盐老人案 · D3 补充说明",
+"person":"卖盐老人",
+"profession":"原住民农户、盐商",
+"old_text":"【三角】【缺口圆】【权杖】【种子】……",
+"official_translation":"土地收归国有，（你们）没有权力播种",
+"recommendation":"老人明知产权已经变更仍继续种植，等待终审",
+"attachment_action_id":"day03_take_official_agreement",
+"attachment_label":"查看《对原住民的告知和补偿协议》",
+"question_required_conclusions":["conclusion_day03_dictionary_tampered"],
+"question_locked_text":"存疑章尚不可用：需要证明官方词典和协议均被修改。",
+"question_ready_text":"结论 05 已成立：可以附三项证据提交存疑。"
+}
+puzzle_data = {
+"recipes":[
+{"required_clues":["item_day03_official_agreement","item_day03_elder_agreement_photo"],"conclusion_id":"conclusion_day03_dictionary_history_available"},
+{"required_clues":["item_day03_current_dictionary_photo","item_day03_historical_dictionary_photo","item_day01_marina_note"],"conclusion_id":"conclusion_day03_dictionary_tampered"}
+]
+}

@@ -99,3 +99,13 @@ offset_bottom = 930.0
 script = ExtResource("2")
 hotspot_id = &"to_room"
 display_label = "返回译者房间"
+
+[node name="hotspot_to_detention" type="Button" parent="HotspotLayer"]
+visible = false
+offset_left = 1340.0
+offset_top = 220.0
+offset_right = 1880.0
+offset_bottom = 930.0
+script = ExtResource("2")
+hotspot_id = &"to_detention"
+display_label = "按路标前往临时羁押处"

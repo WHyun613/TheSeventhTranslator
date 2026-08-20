@@ -71,6 +71,7 @@ offset_bottom = 780.0
 script = ExtResource("2_hotspot")
 hotspot_id = &"objective_paper"
 display_label = "玩家目标"
+visual_asset_id = &"prop_translator_room_player_objective"
 
 [node name="hotspot_translator_desk" type="Button" parent="HotspotLayer" unique_id=122186422]
 layout_mode = 0

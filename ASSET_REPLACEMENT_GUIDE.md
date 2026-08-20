@@ -49,6 +49,7 @@ font_body_zh
 | `char_tomas_concerned` | `assets/characters/tomas/concerned.png` | 存疑路线的 Tomas 立绘 |
 | `doc_official_dictionary_v4` | `assets/documents/day_01/dictionary.png` | 词典阅读页左侧预览 |
 | `doc_player_objective` | `assets/documents/day_01/player_objective.png` | 玩家目标阅读页左侧预览 |
+| `prop_translator_room_player_objective` | `assets/items/day_01/player_objective_scene.png` | 译者房间场景内“玩家目标”物品图 |
 | `doc_case_salt_elder` | `assets/documents/day_01/case_salt_elder.png` | 案件提示阅读页左侧预览 |
 | `item_day01_old_text` | `assets/items/day_01/old_text.png` | 旧文详情、物品栏和推理线索 |
 | `item_day01_marina_note` | `assets/items/day_01/marina_note.png` | 纸条详情、物品栏和推理线索 |
@@ -150,7 +151,7 @@ font_body_zh
 | `item_day02_old_letter` | `assets/documents/day_02/old_letter.png` | 旧信详情与推理证据 |
 | `item_day02_old_map` | `assets/documents/day_02/old_map.png` | 旧地图详情与推理证据 |
 | `doc_day02_elder_photo` | `assets/documents/day_02/elder_photo.png` | Marina 对话中的老人照片 |
-| `doc_dictionary_hand_unlocked` | `assets/documents/day_02/dictionary_hand.png` | 得出“手掌=守护”后解锁的词典第二页 |
+| `doc_dictionary_timeline_02` | `assets/documents/dictionary/timeline_02.png` | D3 解锁的三年前词典时间页 |
 | `conclusion_day02_hand_protects` | `assets/documents/day_02/conclusion_hand.png` | 结论 02 卡片 |
 | `conclusion_day02_border_changed` | `assets/documents/day_02/conclusion_border.png` | 结论 03 卡片 |
 
@@ -168,3 +169,44 @@ font_body_zh
 - 档案室内部：`res://scenes/locations/day_02/archive_interior.tscn` → 纸堆、旧地图、黑章和出口。
 
 第二天正文、物品、地点与推理配方集中在 `res://content/days/day_02/day_02.tres`。更换图片只改 AssetCatalog，不需要改这个数据文件；只有调整正文、配方或增加新词典页时才编辑它。
+
+## 10. 第三天资产填入表
+
+第三天仍使用同一个 `res://content/catalogs/asset_catalog.tres`。以下资源都已经注册；没有绑定图片时会显示资源 ID 占位，不会阻止完整通关。
+
+| Asset ID | 推荐放置路径 | 使用位置 |
+| --- | --- | --- |
+| `bg_day03_detention_room` | `assets/backgrounds/day_03/detention_room.png` | 临时羁押室全屏背景 |
+| `char_elder_neutral` | `assets/characters/elder/neutral.png` | 老人透明半身立绘 |
+| `char_marina_neutral` | `assets/characters/marina/neutral.png` | D3 街道与羁押室 Marina 立绘 |
+| `char_tomas_concerned` | `assets/characters/tomas/concerned.png` | 红章路线 Tomas 惊恐/警告立绘 |
+| `prop_day03_case_file` | `assets/items/day_03/case_file_scene.png` | D3 译者桌案卷物品图 |
+| `prop_day03_camera` | `assets/items/day_03/camera_scene.png` | D3 译者桌相机物品图 |
+| `prop_day03_elder_agreement` | `assets/items/day_03/elder_agreement_scene.png` | 羁押室内老人递出的协议物品图 |
+| `item_day03_camera` | `assets/items/day_03/camera_inventory.png` | 相机物品栏图 |
+| `item_day03_official_agreement` | `assets/documents/day_03/official_agreement.png` | 官方协议物品栏及推理证据图 |
+| `doc_day03_official_agreement` | `assets/documents/day_03/official_agreement_view.png` | 官方协议阅读页 |
+| `doc_day03_elder_agreement` | `assets/documents/day_03/elder_agreement_view.png` | 老人旧协议拍照前阅读页 |
+| `item_day03_elder_agreement_photo` | `assets/documents/day_03/elder_agreement_photo.png` | 老人旧协议照片物品栏与推理图 |
+| `doc_day03_elder_agreement_photo` | `assets/documents/day_03/elder_agreement_photo_view.png` | 老人旧协议照片放大页 |
+| `item_day03_current_dictionary_photo` | `assets/documents/day_03/current_dictionary_photo.png` | 当前词典照片物品栏与推理图 |
+| `doc_day03_current_dictionary_photo` | `assets/documents/day_03/current_dictionary_photo_view.png` | 当前词典照片放大页 |
+| `item_day03_historical_dictionary_photo` | `assets/documents/day_03/historical_dictionary_photo.png` | 三年前词典照片物品栏与推理图 |
+| `doc_day03_historical_dictionary_photo` | `assets/documents/day_03/historical_dictionary_photo_view.png` | 三年前词典照片放大页 |
+| `conclusion_day03_dictionary_history_available` | `assets/documents/day_03/conclusion_04.png` | 结论 04 卡片 |
+| `conclusion_day03_dictionary_tampered` | `assets/documents/day_03/conclusion_05.png` | 结论 05 卡片 |
+
+同一内容设置了 `item_*` 和 `doc_*` 两个接口时，前者用于物品栏和推理台的小图，后者用于点击后的大图。可以暂时把同一张 PNG 同时拖进两个槽位；后续有缩略图时再分别替换。
+
+### 10.1 第三天热点对齐
+
+- 译者桌：打开 `res://scenes/locations/shared/translator_desk.tscn`。
+  - `hotspot_case_file`：D3 会自动使用 `prop_day03_case_file`。
+  - `hotspot_camera`：相机位置；D1、D2 自动隐藏，D3 取得相机后也会隐藏。
+- 街道：打开 `res://scenes/locations/day_02/street.tscn`。
+  - `hotspot_to_detention`：前往临时羁押室的路标区域；D1、D2 不显示，完成 D3 Marina 对话后才启用。
+- 临时羁押室：打开 `res://scenes/locations/day_03/detention_room.tscn`。
+  - `hotspot_elder_agreement`：老人递出的协议；完成羁押室对白后显示，拍照后隐藏。
+  - `hotspot_to_street`：返回街道。
+
+第三天正文、地点、物品、案卷与两条推理配方集中在 `res://content/days/day_03/day_03.tres`。结论 05 固定需要当前词典照片、三年前词典照片和 Day 1 Marina 纸条三项证据；纸条作为“缺口圆＝没有”的自然语言确认，证据不会被消耗。

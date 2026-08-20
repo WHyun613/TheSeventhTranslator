@@ -3,12 +3,14 @@ extends RefCounted
 
 const DAY_01: DayDefinition = preload("res://content/days/day_01/day_01.tres")
 const DAY_02: DayDefinition = preload("res://content/days/day_02/day_02.tres")
+const DAY_03: DayDefinition = preload("res://content/days/day_03/day_03.tres")
 const ASSET_CATALOG: AssetCatalog = preload("res://content/catalogs/asset_catalog.tres")
 
 var current_day: DayDefinition = DAY_01
 var _days := {
 	"day_01": DAY_01,
 	"day_02": DAY_02,
+	"day_03": DAY_03,
 }
 
 

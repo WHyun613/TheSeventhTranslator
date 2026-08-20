@@ -2,10 +2,12 @@ class_name DocumentViewer
 extends ColorRect
 
 signal closed(document_id: String)
+signal action_requested(document_id: String, action_id: String)
 
 var _document_id := ""
 var _title_label: Label
 var _body_label: RichTextLabel
+var _content_grid: GridContainer
 var _art_panel: PanelContainer
 var _art_texture: TextureRect
 var _art_label: Label
@@ -16,6 +18,8 @@ var _page_label: Label
 var _page_asset_ids: Array = []
 var _page_index := 0
 var _page_catalog: AssetCatalog
+var _action_button: Button
+var _action_id := ""
 
 
 func _ready() -> void:
@@ -45,14 +49,16 @@ func _build_ui() -> void:
 	_title_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_title_label.add_theme_font_size_override("font_size", 44)
 	box.add_child(_title_label)
-	var body_row := HBoxContainer.new()
-	body_row.add_theme_constant_override("separation", 26)
-	body_row.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	box.add_child(body_row)
+	_content_grid = GridContainer.new()
+	_content_grid.columns = 2
+	_content_grid.add_theme_constant_override("h_separation", 26)
+	_content_grid.add_theme_constant_override("v_separation", 14)
+	_content_grid.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	box.add_child(_content_grid)
 	_art_panel = PanelContainer.new()
 	_art_panel.custom_minimum_size = Vector2(300, 560)
 	_art_panel.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	body_row.add_child(_art_panel)
+	_content_grid.add_child(_art_panel)
 	_art_texture = TextureRect.new()
 	_art_texture.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	_art_texture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
@@ -73,7 +79,7 @@ func _build_ui() -> void:
 	_body_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_body_label.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_body_label.add_theme_font_size_override("normal_font_size", 29)
-	body_row.add_child(_body_label)
+	_content_grid.add_child(_body_label)
 	var actions := HBoxContainer.new()
 	actions.alignment = BoxContainer.ALIGNMENT_CENTER
 	actions.add_theme_constant_override("separation", 18)
@@ -100,9 +106,14 @@ func _build_ui() -> void:
 	close_button.pressed.connect(_close)
 	actions.add_child(close_button)
 	_page_navigation.visible = false
+	_action_button = Button.new()
+	_action_button.custom_minimum_size = Vector2(280, 56)
+	_action_button.pressed.connect(_request_action)
+	_action_button.visible = false
+	actions.add_child(_action_button)
 
 
-func open_document(document_id: String, title: String, body: String, asset_id: String = "", texture: Texture2D = null) -> void:
+func open_document(document_id: String, title: String, body: String, asset_id: String = "", texture: Texture2D = null, action_id: String = "", action_label: String = "", presentation := "standard") -> void:
 	_page_asset_ids.clear()
 	_page_catalog = null
 	_page_navigation.visible = false
@@ -116,8 +127,10 @@ func open_document(document_id: String, title: String, body: String, asset_id: S
 	_art_panel.visible = texture != null
 	_art_label.visible = false
 	_art_label.text = "[待替换文档资产]\n" + asset_id
-	_art_panel.custom_minimum_size = Vector2(300, 560)
-	_art_panel.size_flags_horizontal = Control.SIZE_FILL
+	_apply_document_presentation(presentation)
+	_action_id = action_id
+	_action_button.text = action_label if not action_label.is_empty() else "执行操作"
+	_action_button.visible = not action_id.is_empty()
 	visible = true
 
 
@@ -128,12 +141,30 @@ func open_image_document(document_id: String, title: String, page_asset_ids: Arr
 	_art_panel.visible = true
 	_art_panel.custom_minimum_size = Vector2(920, 560)
 	_art_panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_content_grid.columns = 1
 	_page_asset_ids = page_asset_ids.duplicate()
 	_page_catalog = catalog
+	_action_id = ""
+	_action_button.visible = false
 	_page_index = 0
 	_page_navigation.visible = true
 	_update_image_page()
 	visible = true
+
+
+func _apply_document_presentation(presentation: String) -> void:
+	if presentation == "large_image_with_caption":
+		_content_grid.columns = 1
+		_art_panel.custom_minimum_size = Vector2(920, 410)
+		_art_panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		_body_label.custom_minimum_size = Vector2(920, 105)
+		_body_label.scroll_active = false
+		return
+	_content_grid.columns = 2
+	_art_panel.custom_minimum_size = Vector2(300, 560)
+	_art_panel.size_flags_horizontal = Control.SIZE_FILL
+	_body_label.custom_minimum_size = Vector2(640, 560)
+	_body_label.scroll_active = true
 
 
 func _change_page(offset: int) -> void:
@@ -161,3 +192,10 @@ func _update_image_page() -> void:
 func _close() -> void:
 	visible = false
 	closed.emit(_document_id)
+
+
+func _request_action() -> void:
+	if _action_id.is_empty():
+		return
+	_action_button.visible = false
+	action_requested.emit(_document_id, _action_id)

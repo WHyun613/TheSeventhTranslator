@@ -6,6 +6,9 @@ signal closed
 # DEV DAY 2 SHORTCUT START — 删除本信号与同名标记区块即可移除测试入口。
 signal debug_day2_requested
 # DEV DAY 2 SHORTCUT END
+# DEV DAY 3 SHORTCUT START — 删除本信号及同名标记区块即可移除测试入口。
+signal debug_day3_requested
+# DEV DAY 3 SHORTCUT END
 
 var _volume_slider: HSlider
 var _speed_option: OptionButton
@@ -14,6 +17,10 @@ var _fullscreen_check: CheckButton
 var _debug_day2_button: Button
 var _debug_day2_confirmation: ConfirmationDialog
 # DEV DAY 2 SHORTCUT END
+# DEV DAY 3 SHORTCUT START
+var _debug_day3_button: Button
+var _debug_day3_confirmation: ConfirmationDialog
+# DEV DAY 3 SHORTCUT END
 
 
 func _ready() -> void:
@@ -72,13 +79,17 @@ func _build_ui() -> void:
 	debug_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	debug_title.modulate = Color(0.92, 0.70, 0.38)
 	box.add_child(debug_title)
+	var debug_shortcuts := HBoxContainer.new()
+	debug_shortcuts.alignment = BoxContainer.ALIGNMENT_CENTER
+	debug_shortcuts.add_theme_constant_override("separation", 14)
+	box.add_child(debug_shortcuts)
 	_debug_day2_button = Button.new()
 	_debug_day2_button.text = "测试：直接进入第二天"
 	_debug_day2_button.tooltip_text = "创建干净的 D2 测试存档，并从 Tomas 开场开始。"
-	_debug_day2_button.custom_minimum_size = Vector2(420, 58)
+	_debug_day2_button.custom_minimum_size = Vector2(280, 58)
 	_debug_day2_button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	_debug_day2_button.pressed.connect(_request_debug_day2)
-	box.add_child(_debug_day2_button)
+	debug_shortcuts.add_child(_debug_day2_button)
 	_debug_day2_confirmation = ConfirmationDialog.new()
 	_debug_day2_confirmation.title = "直接进入第二天"
 	_debug_day2_confirmation.dialog_text = "将创建新的 D2 测试状态，并覆盖当前自动存档。\n是否继续？"
@@ -87,6 +98,22 @@ func _build_ui() -> void:
 	_debug_day2_confirmation.confirmed.connect(_confirm_debug_day2)
 	add_child(_debug_day2_confirmation)
 	# DEV DAY 2 SHORTCUT END
+	# DEV DAY 3 SHORTCUT START — 整段可独立删除，不影响 D2 按钮与正式日程。
+	_debug_day3_button = Button.new()
+	_debug_day3_button.text = "测试：直接进入第三天"
+	_debug_day3_button.tooltip_text = "创建带有 Day 1 Marina 纸条的干净 D3 测试存档，并从 Tomas 开场开始。"
+	_debug_day3_button.custom_minimum_size = Vector2(280, 58)
+	_debug_day3_button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	_debug_day3_button.pressed.connect(_request_debug_day3)
+	debug_shortcuts.add_child(_debug_day3_button)
+	_debug_day3_confirmation = ConfirmationDialog.new()
+	_debug_day3_confirmation.title = "直接进入第三天"
+	_debug_day3_confirmation.dialog_text = "将创建新的 D3 测试状态，并覆盖当前自动存档。\n测试状态会保留 Marina 的 Day 1 纸条。是否继续？"
+	_debug_day3_confirmation.ok_button_text = "进入第三天"
+	_debug_day3_confirmation.cancel_button_text = "取消"
+	_debug_day3_confirmation.confirmed.connect(_confirm_debug_day3)
+	add_child(_debug_day3_confirmation)
+	# DEV DAY 3 SHORTCUT END
 	var buttons := HBoxContainer.new()
 	buttons.alignment = BoxContainer.ALIGNMENT_CENTER
 	buttons.add_theme_constant_override("separation", 18)
@@ -135,3 +162,14 @@ func _confirm_debug_day2() -> void:
 	visible = false
 	debug_day2_requested.emit()
 # DEV DAY 2 SHORTCUT END
+
+
+# DEV DAY 3 SHORTCUT START — 删除本区块即可移除 D3 测试入口逻辑。
+func _request_debug_day3() -> void:
+	_debug_day3_confirmation.popup_centered(Vector2i(680, 280))
+
+
+func _confirm_debug_day3() -> void:
+	visible = false
+	debug_day3_requested.emit()
+# DEV DAY 3 SHORTCUT END

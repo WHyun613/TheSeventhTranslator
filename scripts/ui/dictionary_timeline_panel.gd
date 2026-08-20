@@ -91,6 +91,8 @@ class TimelineScrubber:
 
 
 signal closed(current_page: int)
+signal page_action_requested(page_index: int, action_id: String)
+signal page_clicked(page_index: int)
 
 var _catalog: AssetCatalog
 var _definition: Dictionary
@@ -111,6 +113,7 @@ var _page_placeholder: Label
 var _page_label: Label
 var _unlock_label: Label
 var _scrubber: TimelineScrubber
+var _page_action_id := ""
 
 
 func _ready() -> void:
@@ -148,6 +151,11 @@ func _build_ui() -> void:
 	page_panel.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	box.add_child(page_panel)
 	var page_layer := Control.new()
+	page_layer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	page_layer.mouse_filter = Control.MOUSE_FILTER_STOP
+	page_layer.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	page_layer.tooltip_text = "选择相机后，点击当前词典页面进行拍摄"
+	page_layer.gui_input.connect(_on_page_gui_input)
 	page_panel.add_child(page_layer)
 	_page_texture = TextureRect.new()
 	_page_texture.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -194,6 +202,7 @@ func open_dictionary(definition: Dictionary, catalog: AssetCatalog, unlocked_sta
 	while _page_asset_ids.size() < 3:
 		_page_asset_ids.append("")
 	_transition_asset_ids = (definition.get("timeline_transition_asset_ids", {}) as Dictionary).duplicate(true)
+	_page_action_id = String(definition.get("timeline_page_action_id", ""))
 	_unlocked_count = clampi(unlocked_stage, 1, 3)
 	_current_page = clampi(saved_page, 0, _unlocked_count - 1)
 	_requested_page = _current_page
@@ -298,3 +307,15 @@ func _close() -> void:
 		return
 	visible = false
 	closed.emit(_current_page)
+
+
+func _request_page_action() -> void:
+	if _animating:
+		return
+	page_clicked.emit(_current_page)
+
+
+func _on_page_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		_request_page_action()
+		accept_event()

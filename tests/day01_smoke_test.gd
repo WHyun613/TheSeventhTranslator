@@ -47,6 +47,8 @@ func _run() -> void:
 	_check(main._current_location_view.hotspot_by_id("office_door") == null, "译者房间仍然存在 Tomas 门场景热点。")
 	_check(main._current_location_view.hotspot_by_id("case_file") == null, "译者房间仍然存在老人案卷场景热点。")
 	_check(main._current_location_view.hotspot_by_id("translator_desk") != null, "译者房间缺少进入译者桌的热点。")
+	_check(main._current_location_view.hotspot_by_id("objective_paper").visual_asset_id == &"prop_translator_room_player_objective", "玩家目标场景热点没有接入独立图片接口。")
+	_check(main.content.ASSET_CATALOG.entries.has(&"prop_translator_room_player_objective"), "AssetCatalog 缺少玩家目标场景物品图片接口。")
 	_check(main._reasoning_button != null, "物品栏旁边没有译者推理台 UI 入口。")
 	_check(main.state.has_item("item_official_dictionary_v4"), "入职后没有获得官方词典。")
 	_check(main.content.document("official_dictionary").size() > 0, "词典数据被意外删除。")
