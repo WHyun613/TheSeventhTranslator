@@ -54,12 +54,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 [node name="hotspot_to_street" type="Button" parent="HotspotLayer"]
-offset_left = 20.0
-offset_top = 250.0
-offset_right = 340.0
-offset_bottom = 950.0
+offset_left = 1120.0
+offset_top = 820.0
+offset_right = 1430.0
+offset_bottom = 970.0
 script = ExtResource("2")
 hotspot_id = &"to_street"
+visual_asset_id = &"prop_day02_return_to_street"
+visual_region = Rect2(1563, 754, 669, 710)
 display_label = "返回街道"
 [node name="hotspot_to_archive" type="Button" parent="HotspotLayer"]
 offset_left = 1480.0

@@ -11,10 +11,14 @@
 [ext_resource type="Texture2D" uid="uid://irk8m8oscu2l" path="res://assets/characters/tomas/dc7c9265-5f73-4233-9fc6-0ccec8c7dfd9.png" id="4_3v2e7"]
 [ext_resource type="Texture2D" uid="uid://dmgjaxxsuqw78" path="res://assets/items/day_01/translator_desk_case_file.png" id="6_case_item"]
 [ext_resource type="Texture2D" uid="uid://bnqn772o0c6hg" path="res://assets/items/day_01/67b79b3ff3c887eee0817d102b2d8cac.png" id="7_754os"]
+[ext_resource type="Texture2D" uid="uid://ciwn7d5ifbmb4" path="res://assets/items/day_2/IMG_0274.png" id="8_day02_archive_door"]
 [ext_resource type="Texture2D" uid="uid://yuajptkrpumj" path="res://assets/items/day_2/IMG_0270.png" id="8_day02_bag"]
+[ext_resource type="Texture2D" uid="uid://bisvcryhqwsui" path="res://assets/items/day_2/IMG_0285.png" id="9_day02_boy_drawing_detail"]
 [ext_resource type="Texture2D" uid="uid://dg7bp8vismlwl" path="res://assets/items/day_2/IMG_0278.png" id="9_mprln"]
 [ext_resource type="Texture2D" uid="uid://br0rd34mgswjr" path="res://assets/items/day_2/IMG_0286.png" id="10_ia7w7"]
 [ext_resource type="Texture2D" uid="uid://bku3yprtld64s" path="res://assets/items/day_2/marina的钱包.png" id="11_15ism"]
+
+[ext_resource type="Texture2D" uid="uid://bdck52bnam3vr" path="res://assets/items/day_2/IMG_0289.png" id="12_day02_return_to_street"]
 
 [resource]
 script = ExtResource("1_catalog")
@@ -63,7 +67,7 @@ entries = Dictionary[StringName, Resource]({
 &"glyph_gap_circle": null,
 &"item_day01_marina_note": null,
 &"item_day01_old_text": null,
-&"item_day02_boy_drawing": ExtResource("9_mprln"),
+&"item_day02_boy_drawing": ExtResource("9_day02_boy_drawing_detail"),
 &"item_day02_field_photo": null,
 &"item_day02_old_letter": null,
 &"item_day02_old_map": ExtResource("10_ia7w7"),
@@ -76,12 +80,14 @@ entries = Dictionary[StringName, Resource]({
 &"logo_game": null,
 &"music_day01": null,
 &"prop_day01_corn_leaf": null,
+&"prop_day02_archive_door": ExtResource("8_day02_archive_door"),
 &"prop_day02_bag": ExtResource("8_day02_bag"),
 &"prop_day02_black_stamp": null,
 &"prop_day02_boy_drawing": ExtResource("9_mprln"),
 &"prop_day02_case_detailed": null,
 &"prop_day02_old_map": null,
 &"prop_day02_paper_stack": null,
+&"prop_day02_return_to_street": ExtResource("12_day02_return_to_street"),
 &"prop_day02_wallet": ExtResource("11_15ism"),
 &"prop_day03_camera": null,
 &"prop_day03_case_file": null,

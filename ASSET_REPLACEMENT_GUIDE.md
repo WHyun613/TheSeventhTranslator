@@ -142,6 +142,8 @@ font_body_zh
 | `prop_day02_boy_drawing` | `assets/items/day_02/boy_drawing_scene.png` | 街道地面上的画 |
 | `prop_day02_wallet` | `assets/items/day_02/wallet_scene.png` | 街道地面上的钱包 |
 | `prop_day02_bag` | `assets/items/day_02/cloth_bag_scene.png` | 街道地面上的破布袋 |
+| `prop_day02_archive_door` | `assets/items/day_2/IMG_0274.png` | 档案室入口的可点击大门 |
+| `prop_day02_return_to_street` | `assets/items/day_2/IMG_0289.png` | 树林中返回街道的可点击场景物品 |
 | `prop_day02_paper_stack` | `assets/items/day_02/paper_stack.png` | 档案室纸堆 |
 | `prop_day02_old_map` | `assets/items/day_02/old_map_scene.png` | 档案室墙面旧地图 |
 | `prop_day02_black_stamp` | `assets/items/day_02/black_stamp_scene.png` | 档案室黑章 |
