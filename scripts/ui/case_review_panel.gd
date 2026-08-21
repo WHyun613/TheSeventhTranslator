@@ -66,9 +66,9 @@ func _build_ui() -> void:
 	stamps.alignment = BoxContainer.ALIGNMENT_CENTER
 	stamps.add_theme_constant_override("separation", 24)
 	box.add_child(stamps)
-	_approve_button = _make_stamp("蓝章 · 通过", Color(0.42, 0.66, 0.90), "APPROVE")
+	_approve_button = _make_stamp("红章 · 通过",  Color(0.92, 0.42, 0.38), "APPROVE")
 	stamps.add_child(_approve_button)
-	_question_button = _make_stamp("红章 · 存疑", Color(0.92, 0.42, 0.38), "QUESTION")
+	_question_button = _make_stamp("蓝章 · 存疑", Color(0.42, 0.66, 0.90), "QUESTION")
 	stamps.add_child(_question_button)
 	_unknown_button = _make_stamp("黑章 · 用途不明", Color(0.52, 0.52, 0.52), "UNKNOWN")
 	_unknown_button.disabled = true

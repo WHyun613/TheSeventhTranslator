@@ -8,7 +8,6 @@
 [ext_resource type="FontFile" uid="uid://c4nv4cook6o8k" path="res://迫真打字油印体.ttf" id="2_font"]
 [ext_resource type="Texture2D" uid="uid://cpotnfm4iw7sp" path="res://assets/items/day_01/translator_desk_dictionary.png" id="3_dictionary_item"]
 [ext_resource type="Texture2D" uid="uid://b66euxovogh1p" path="res://scenes/locations/day_02/森林.png" id="3_yvpvd"]
-[ext_resource type="Texture2D" uid="uid://irk8m8oscu2l" path="res://assets/characters/tomas/dc7c9265-5f73-4233-9fc6-0ccec8c7dfd9.png" id="4_3v2e7"]
 [ext_resource type="Texture2D" uid="uid://dmgjaxxsuqw78" path="res://assets/items/day_01/translator_desk_case_file.png" id="6_case_item"]
 [ext_resource type="Texture2D" uid="uid://bnqn772o0c6hg" path="res://assets/items/day_01/67b79b3ff3c887eee0817d102b2d8cac.png" id="7_754os"]
 [ext_resource type="Texture2D" uid="uid://ciwn7d5ifbmb4" path="res://assets/items/day_2/IMG_0274.png" id="8_day02_archive_door"]
@@ -19,6 +18,10 @@
 [ext_resource type="Texture2D" uid="uid://bku3yprtld64s" path="res://assets/items/day_2/marina的钱包.png" id="11_15ism"]
 
 [ext_resource type="Texture2D" uid="uid://bdck52bnam3vr" path="res://assets/items/day_2/IMG_0289.png" id="12_day02_return_to_street"]
+[ext_resource type="Texture2D" uid="uid://8prbper3c86a" path="res://assets/items/day_02/《老人种植田地包含在国有土地内的图片》.png" id="13_day02_field_photo"]
+[ext_resource type="Texture2D" uid="uid://tr2n5kq5c5uq" path="res://assets/backgrounds/shared/路牌.png" id="14_day02_guideboard"]
+[ext_resource type="Texture2D" uid="uid://irk8m8oscu2l" path="res://assets/characters/tomas/tomas.png" id="15_tomas"]
+[ext_resource type="Texture2D" uid="uid://cfhhka1gjbx37" path="res://assets/characters/coachman/coachman.png" id="16_coachman"]
 
 [resource]
 script = ExtResource("1_catalog")
@@ -37,13 +40,13 @@ entries = Dictionary[StringName, Resource]({
 &"bg_main_menu": null,
 &"bg_translator_desk": ExtResource("2_3v2e7"),
 &"bg_translator_room": ExtResource("2_31f75"),
-&"char_coachman_neutral": ExtResource("4_3v2e7"),
+&"char_coachman_neutral": ExtResource("16_coachman"),
 &"char_elder_neutral": null,
 &"char_marina_neutral": null,
 &"char_marina_urgent": null,
 &"char_mystery_boy_neutral": null,
-&"char_tomas_concerned": ExtResource("4_3v2e7"),
-&"char_tomas_neutral": ExtResource("4_3v2e7"),
+&"char_tomas_concerned": ExtResource("15_tomas"),
+&"char_tomas_neutral": ExtResource("15_tomas"),
 &"char_tomas_yawn": null,
 &"conclusion_day02_border_changed": null,
 &"conclusion_day02_hand_protects": null,
@@ -68,7 +71,7 @@ entries = Dictionary[StringName, Resource]({
 &"item_day01_marina_note": null,
 &"item_day01_old_text": null,
 &"item_day02_boy_drawing": ExtResource("9_day02_boy_drawing_detail"),
-&"item_day02_field_photo": null,
+&"item_day02_field_photo": ExtResource("13_day02_field_photo"),
 &"item_day02_old_letter": null,
 &"item_day02_old_map": ExtResource("10_ia7w7"),
 &"item_day02_wallet": ExtResource("11_15ism"),
@@ -84,8 +87,9 @@ entries = Dictionary[StringName, Resource]({
 &"prop_day02_bag": ExtResource("8_day02_bag"),
 &"prop_day02_black_stamp": null,
 &"prop_day02_boy_drawing": ExtResource("9_mprln"),
-&"prop_day02_case_detailed": null,
-&"prop_day02_old_map": null,
+&"prop_day02_case_detailed": ExtResource("6_case_item"),
+&"prop_day02_guideboard": ExtResource("14_day02_guideboard"),
+&"prop_day02_old_map": ExtResource("10_ia7w7"),
 &"prop_day02_paper_stack": null,
 &"prop_day02_return_to_street": ExtResource("12_day02_return_to_street"),
 &"prop_day02_wallet": ExtResource("11_15ism"),

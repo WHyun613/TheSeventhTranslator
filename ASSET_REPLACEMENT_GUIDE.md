@@ -90,11 +90,7 @@ font_body_zh
 
 镇外现有热点是 `hotspot_corn_leaf`、`hotspot_enter_town`；译者房间现有热点是 `hotspot_objective_paper`、`hotspot_drawer`、`hotspot_translator_desk`；译者桌现有热点是 `hotspot_case_file`、`hotspot_dictionary`、`hotspot_return_room`。老人案卷和 Tomas 门已从房间热点移除，源数据仍保留；译者推理台已经移动到物品栏旁的 UI 入口。热点坐标只保存在这些场景节点中，不要在 AssetCatalog 或剧情数据中填写第二套坐标。
 
-官方词典现在使用独立的三阶段时间轴 UI，不再使用普通文档的“上一页/下一页”按钮。三张静态页面依次读取 `doc_official_dictionary_v4`、`doc_dictionary_timeline_02`、`doc_dictionary_timeline_03`。右下角时间标志和轨道分别读取 `ui_dictionary_time_marker`、`ui_dictionary_time_track`；未提供这两张图时会显示程序绘制的占位样式。
-
-词典初始只解锁第一阶段。剧情任务应调用 `Main.unlock_dictionary_stage(2)` 或 `Main.unlock_dictionary_stage(3)`，不要直接修改 UI。解锁只会扩大时间标志可拖动的范围，不会自动替玩家切页；当前页和解锁进度都会存档。
-
-逐帧切换动画预留为四个 `SpriteFrames` 资源槽：`anim_dictionary_01_to_02`、`anim_dictionary_02_to_01`、`anim_dictionary_02_to_03`、`anim_dictionary_03_to_02`。动画资源没绑定时会即时切换，因此占位阶段仍可测试完整逻辑。收到正式逐帧素材后，再按实际帧尺寸、帧数和播放速度配置这些槽位。
+官方词典现在是纯图片翻页文档，不再显示程序内置正文。第一页使用 `doc_official_dictionary_v4`。未来增加页面时：先在 AssetCatalog 增加新的页面资产 ID，再把 ID 按顺序加入 `content/days/day_01/day_01.tres` 中 `official_dictionary.page_asset_ids` 数组；上一页、下一页和页码 UI 已经接好。
 
 案卷界面的三枚印章分别读取 `stamp_approve`、`stamp_question`、`stamp_unknown`。把三张美术图拖进 AssetCatalog 对应条目即可，无需修改案卷场景。
 

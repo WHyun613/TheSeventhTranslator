@@ -81,9 +81,6 @@ func _run() -> void:
 	main._dictionary_timeline._on_stage_selected(1)
 	_check(main._dictionary_timeline._current_page == 1, "未绑定逐帧动画时词典没有降级为即时切页。")
 	main._dictionary_timeline._close()
-	_check(int(main.state.data["dictionary_current_page"]) == 1, "词典当前时间页没有写入存档状态。")
-	main.state.data["dictionary_unlocked_stage"] = 1
-	main.state.data["dictionary_current_page"] = 0
 	main._current_location_view.hotspot_by_id("case_file").pressed.emit()
 	_check(main._case_review.visible, "点击译者桌上的案卷没有打开案件复核。")
 	main._case_review._close()

@@ -119,7 +119,6 @@ func open_document(document_id: String, title: String, body: String, asset_id: S
 	_page_navigation.visible = false
 	_document_id = document_id
 	_title_label.text = title
-	_body_label.visible = true
 	_body_label.text = body
 	_body_label.scroll_to_line(0)
 	_art_texture.texture = texture
@@ -127,12 +126,22 @@ func open_document(document_id: String, title: String, body: String, asset_id: S
 	_art_panel.visible = texture != null
 	_art_label.visible = false
 	_art_label.text = "[待替换文档资产]\n" + asset_id
-	_apply_document_presentation(presentation)
 	_action_id = action_id
 	_action_button.text = action_label if not action_label.is_empty() else "执行操作"
 	_action_button.visible = not action_id.is_empty()
 	visible = true
 
+	var has_body := not body.strip_edges().is_empty()
+	_body_label.visible = has_body
+	if has_body:
+		_art_panel.custom_minimum_size = Vector2(300, 560)
+		_art_panel.size_flags_horizontal = Control.SIZE_FILL
+	else:
+		_art_panel.custom_minimum_size = Vector2(920, 560)
+		_art_panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_apply_document_presentation(presentation)
+
+	visible = true
 
 func open_image_document(document_id: String, title: String, page_asset_ids: Array, catalog: AssetCatalog) -> void:
 	_document_id = document_id

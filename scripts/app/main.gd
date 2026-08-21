@@ -712,6 +712,8 @@ func _open_dictionary() -> void:
 func _open_objective() -> void:
 	_open_document("player_objective")
 
+func _open_guideboard() -> void:
+	_open_document("hotspot_guideboard")
 
 func _open_inventory() -> void:
 	_inventory.open_inventory(
@@ -768,6 +770,8 @@ func _open_document(document_id: String) -> void:
 	var asset_id := String(document.get("asset_id", ""))
 	if document.has("page_asset_ids"):
 		var page_asset_ids := (document.get("page_asset_ids", []) as Array).duplicate()
+		if document_id == "official_dictionary" and not state.has_conclusion("conclusion_day02_hand_protects") and page_asset_ids.size() > 1:
+			page_asset_ids.resize(1)
 		_document_viewer.open_image_document(
 			document_id,
 			String(document.get("title", document_id)),
@@ -1060,6 +1064,9 @@ func _handle_day02_hotspot(hotspot_id: String) -> void:
 		"archive_exit": _go_day02_location("day02_archive_entrance")
 		"boy_drawing": _take_day02_item("item_day02_boy_drawing", "获得“小男孩的画”。")
 		"wallet": _take_day02_item("item_day02_wallet", "捡起 Marina 的钱包。")
+		"guideboard":
+			_auto_save()
+			_toast("右侧前往档案室")
 		"cloth_bag":
 			state.set_flag("day02_bag_seen")
 			_auto_save()
