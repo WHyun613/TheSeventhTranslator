@@ -732,26 +732,15 @@ func _inspect_corn_leaf() -> void:
 
 
 func _enter_town() -> void:
-	state.data["current_location"] = "translator_room"
-	state.data["checkpoint"] = "translator_room_arrival"
-	_auto_save()
-	_refresh_location()
-	if not bool(state.flag("day01_onboarding_complete", false)):
-		_start_onboarding()
+	_transition_to_location("translator_room", _active_hotspot_id)
 
 
 func _go_to_translator_desk() -> void:
-	state.data["current_location"] = "translator_desk"
-	state.data["checkpoint"] = "translator_desk"
-	_auto_save()
-	_refresh_location()
+	_transition_to_location("translator_desk", _active_hotspot_id)
 
 
 func _return_to_translator_room() -> void:
-	state.data["current_location"] = "translator_room"
-	state.data["checkpoint"] = "translator_room"
-	_auto_save()
-	_refresh_location()
+	_transition_to_location("translator_room", _active_hotspot_id)
 
 
 func _start_onboarding() -> void:
@@ -1138,16 +1127,16 @@ func _handle_day02_hotspot(hotspot_id: String) -> void:
 	match hotspot_id:
 		"case_file": _open_case()
 		"dictionary": _open_dictionary()
-		"translator_room": _go_day02_location("translator_room")
-		"translator_desk": _go_day02_location("translator_desk")
+		"translator_room": _transition_to_location("translator_room", hotspot_id)
+		"translator_desk": _transition_to_location("translator_desk", hotspot_id)
 		"objective_paper": _open_objective()
 		"drawer": _toast("抽屉中第一天发现的材料仍保存在物品栏里。")
-		"exit_to_street", "to_street": _go_day02_location("day02_street")
-		"to_room": _go_day02_location("translator_room")
-		"to_woods": _go_day02_location("day02_woods")
-		"to_archive_entrance": _go_day02_location("day02_archive_entrance")
-		"archive_door": _go_day02_location("day02_archive_interior")
-		"archive_exit": _go_day02_location("day02_archive_entrance")
+		"exit_to_street", "to_street": _transition_to_location("day02_street", hotspot_id)
+		"to_room": _transition_to_location("translator_room", hotspot_id)
+		"to_woods": _transition_to_location("day02_woods", hotspot_id)
+		"to_archive_entrance": _transition_to_location("day02_archive_entrance", hotspot_id)
+		"archive_door": _transition_to_location("day02_archive_interior", hotspot_id)
+		"archive_exit": _transition_to_location("day02_archive_entrance", hotspot_id)
 		"boy_drawing": _take_day02_item("item_day02_boy_drawing", "获得“小男孩的画”。")
 		"wallet": _take_day02_item("item_day02_wallet", "捡起 Marina 的钱包。")
 		"guideboard":
@@ -1349,13 +1338,13 @@ func _handle_day03_hotspot(hotspot_id: String) -> void:
 		"case_file": _open_case()
 		"dictionary": _open_dictionary()
 		"camera": _take_day03_camera()
-		"translator_room": _go_day03_location("translator_room")
-		"translator_desk": _go_day03_location("translator_desk")
+		"translator_room": _transition_to_location("translator_room", hotspot_id)
+		"translator_desk": _transition_to_location("translator_desk", hotspot_id)
 		"objective_paper": _open_objective()
 		"drawer": _toast("抽屉中的旧材料仍保存在物品栏里。")
-		"exit_to_street", "to_street": _go_day03_location("day02_street")
-		"to_room": _go_day03_location("translator_room")
-		"to_detention": _go_day03_location("day03_detention_room")
+		"exit_to_street", "to_street": _transition_to_location("day02_street", hotspot_id)
+		"to_room": _transition_to_location("translator_room", hotspot_id)
+		"to_detention": _transition_to_location("day03_detention_room", hotspot_id)
 		"elder_agreement": _open_document("day03_elder_agreement")
 		_: push_warning("未处理的第三天场景热点：" + hotspot_id)
 

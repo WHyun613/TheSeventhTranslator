@@ -15,6 +15,14 @@ func _check(condition: bool, message: String) -> void:
 		push_error("[Day3 Smoke] " + message)
 
 
+func _wait_for_location_transition(main: Node) -> void:
+	var safety := 0
+	while main._location_transition_in_progress and safety < 240:
+		await process_frame
+		safety += 1
+	_check(safety < 240, "场景出口转场没有在安全时间内结束。")
+
+
 func _finish_dialogues(main: Node) -> void:
 	var safety := 0
 	while main._dialogue.is_playing() and safety < 120:
@@ -70,12 +78,15 @@ func _run() -> void:
 	main._toggle_inventory()
 	_check(not main._inventory.visible, "再次点击物品栏按钮后没有收起物品栏。")
 	main._current_location_view.hotspot_by_id("translator_room").pressed.emit()
+	await _wait_for_location_transition(main)
 	main._current_location_view.hotspot_by_id("exit_to_street").pressed.emit()
+	await _wait_for_location_transition(main)
 	_finish_dialogues(main)
 	_check(bool(main.state.flag("day03_detention_route_unlocked", false)), "Marina 对话没有解锁临时羁押处路线。")
 	_check(main._current_location_view.hotspot_by_id("to_detention").visible, "街道没有显示临时羁押处热点。")
 
 	main._current_location_view.hotspot_by_id("to_detention").pressed.emit()
+	await _wait_for_location_transition(main)
 	_check(String(main.state.data["current_location"]) == "day03_detention_room", "无法进入临时羁押室。")
 	_check(not main._dialogue._hover_translation.is_empty(), "老人原住民语对白没有配置悬停译文。")
 	main._dialogue._show_hover_translation()

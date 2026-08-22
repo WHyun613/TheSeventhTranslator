@@ -15,6 +15,14 @@ func _check(condition: bool, message: String) -> void:
 		push_error("[Day1 Smoke] " + message)
 
 
+func _wait_for_location_transition(main: Node) -> void:
+	var safety := 0
+	while main._location_transition_in_progress and safety < 240:
+		await process_frame
+		safety += 1
+	_check(safety < 240, "场景出口转场没有在安全时间内结束。")
+
+
 func _finish_visible_dialogue(main: Node) -> void:
 	var safety := 0
 	while main._dialogue.is_playing() and safety < 100:
@@ -37,7 +45,20 @@ func _run() -> void:
 	_check(main._current_location_view != null, "镇外全屏地点场景没有实例化。")
 	_check(main._current_location_view.hotspot_by_id("corn_leaf") != null, "镇外缺少玉米叶场景热点。")
 	_check(main._current_location_view.hotspot_by_id("enter_town") != null, "镇外缺少入镇场景热点。")
+	var source_location_view: LocationView = main._current_location_view
 	main._current_location_view.hotspot_by_id("enter_town").pressed.emit()
+	await create_timer(0.15).timeout
+	_check(main._location_transition_in_progress, "镜头移动阶段没有锁定场景切换。")
+	_check(source_location_view.scale.x > 1.0, "点击出口后玩家镜头没有朝出口推进。")
+	_check(String(main.state.data["current_location"]) == "town_outskirts", "镜头移动完成前就提前切换了场景。")
+	var switch_safety := 0
+	while String(main.state.data["current_location"]) == "town_outskirts" and switch_safety < 240:
+		await process_frame
+		switch_safety += 1
+	_check(switch_safety < 240, "淡黑后没有切换到目标场景。")
+	_check(main._interaction_effects._scene_cover != null and main._interaction_effects._scene_cover.modulate.a >= 0.99, "场景没有在全黑遮罩下完成切换。")
+	await _wait_for_location_transition(main)
+	_check(main._interaction_effects._scene_cover == null, "淡入完成后没有移除输入遮罩。")
 	_check(main._dialogue.visible, "入镇后没有触发 Tomas 入职对白。")
 	_finish_visible_dialogue(main)
 	_check(main._location_title.text == "译者房间", "地点界面没有显示“译者房间”。")
@@ -67,6 +88,7 @@ func _run() -> void:
 	main._document_viewer._close()
 	_check(not main._case_review.visible, "关闭提示后不应自动打开案件复核。")
 	main._current_location_view.hotspot_by_id("translator_desk").pressed.emit()
+	await _wait_for_location_transition(main)
 	_check(String(main.state.data["current_location"]) == "translator_desk", "点击桌面没有进入译者桌场景。")
 	_check(main._current_location_view.hotspot_by_id("case_file") != null, "译者桌缺少老人案卷热点。")
 	_check(main._current_location_view.hotspot_by_id("dictionary") != null, "译者桌缺少官方词典热点。")
@@ -85,6 +107,7 @@ func _run() -> void:
 	_check(main._case_review.visible, "点击译者桌上的案卷没有打开案件复核。")
 	main._case_review._close()
 	main._current_location_view.hotspot_by_id("translator_room").pressed.emit()
+	await _wait_for_location_transition(main)
 	_check(String(main.state.data["current_location"]) == "translator_room", "无法从译者桌返回译者房间。")
 
 	main._current_location_view.hotspot_by_id("drawer").pressed.emit()
@@ -105,6 +128,7 @@ func _run() -> void:
 	main._document_viewer._close()
 
 	main._current_location_view.hotspot_by_id("translator_desk").pressed.emit()
+	await _wait_for_location_transition(main)
 	main._current_location_view.hotspot_by_id("case_file").pressed.emit()
 	_check(not main._case_review._question_button.disabled, "获得结论后存疑章仍不可用。")
 	main._case_review._select_verdict("QUESTION")

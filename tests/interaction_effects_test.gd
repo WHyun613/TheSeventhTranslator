@@ -35,11 +35,16 @@ func _run() -> void:
 	await create_timer(0.24).timeout
 	_check(source.scale.distance_to(Vector2.ONE) < 0.02, "热点弹起后没有恢复原始缩放。")
 	effects.play_pickup(source)
-	effects.play_scene_reveal()
-	await create_timer(1.1).timeout
+	effects.begin_scene_transition()
+	_check(effects._scene_cover != null and effects._scene_cover.mouse_filter == Control.MOUSE_FILTER_STOP, "镜头移动阶段没有锁定玩家输入。")
+	await effects.fade_scene_to_black()
+	_check(is_equal_approx(effects._scene_cover.modulate.a, 1.0), "0.35 秒淡黑结束后遮罩没有全黑。")
+	await effects.fade_scene_from_black()
 	_check(effects.pickup_effect_count == 1, "拾取动画没有完整启动。")
-	_check(effects.scene_transition_count == 1, "场景擦除动画没有完整启动。")
-	_check(effects._scene_cover == null, "场景擦除结束后遮罩没有释放。")
+	_check(effects.scene_transition_count == 1, "淡黑场景转场没有完整启动。")
+	_check(is_equal_approx(effects.SCENE_FADE_OUT_DURATION, 0.35), "淡黑时长不是 0.35 秒。")
+	_check(is_equal_approx(effects.SCENE_FADE_IN_DURATION, 0.45), "淡入时长不是 0.45 秒。")
+	_check(effects._scene_cover == null, "淡入结束后遮罩没有释放。")
 	_check(inventory_target.scale.distance_to(Vector2.ONE) < 0.02, "背包轻弹结束后没有恢复原始缩放。")
 	if _failures.is_empty():
 		print("INTERACTION_EFFECTS_TEST_OK")
