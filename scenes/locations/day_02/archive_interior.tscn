@@ -329,4 +329,5 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_ws1bx")
 text = "离开档案室"
 script = ExtResource("2")
 hotspot_id = &"archive_exit"
+destination_location_id = &"day02_archive_entrance"
 display_label = "离开档案室"

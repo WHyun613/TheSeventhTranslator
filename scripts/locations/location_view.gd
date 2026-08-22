@@ -2,6 +2,10 @@
 class_name LocationView
 extends Control
 
+const EXIT_CAMERA_DURATION := 0.30
+const EXIT_CAMERA_ZOOM := 1.08
+const EXIT_CAMERA_PAN_WEIGHT := 0.22
+
 signal hotspot_activated(hotspot_id: String)
 
 @export var location_id := ""
@@ -65,6 +69,21 @@ func hotspot_by_id(id: String) -> SceneHotspot:
 		if child is SceneHotspot and String((child as SceneHotspot).hotspot_id) == id:
 			return child as SceneHotspot
 	return null
+
+
+func move_camera_toward_hotspot(id: String) -> void:
+	var hotspot := hotspot_by_id(id)
+	if hotspot == null:
+		await get_tree().create_timer(EXIT_CAMERA_DURATION).timeout
+		return
+	var viewport_center := size * 0.5
+	var exit_center := hotspot.position + hotspot.size * 0.5
+	pivot_offset = viewport_center
+	var target_position := (viewport_center - exit_center) * EXIT_CAMERA_PAN_WEIGHT
+	var tween := create_tween().set_parallel(true).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(self, "scale", Vector2.ONE * EXIT_CAMERA_ZOOM, EXIT_CAMERA_DURATION)
+	tween.tween_property(self, "position", target_position, EXIT_CAMERA_DURATION)
+	await tween.finished
 
 
 func _on_hotspot_pressed(id: String) -> void:

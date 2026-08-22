@@ -429,6 +429,7 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_ynuxb")
 text = "前往树林"
 script = ExtResource("2")
 hotspot_id = &"to_woods"
+destination_location_id = &"day02_woods"
 display_label = "前往树林"
 
 [node name="hotspot_to_room" type="Button" parent="HotspotLayer" unique_id=1823476512]
@@ -447,6 +448,7 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_5ob8w")
 text = "返回译者房间"
 script = ExtResource("2")
 hotspot_id = &"to_room"
+destination_location_id = &"translator_room"
 display_label = "返回译者房间"
 
 [node name="hotspot_to_detention" type="Button" parent="HotspotLayer"]
@@ -457,6 +459,7 @@ offset_right = 1880.0
 offset_bottom = 930.0
 script = ExtResource("2")
 hotspot_id = &"to_detention"
+destination_location_id = &"day03_detention_room"
 display_label = "按路标前往临时羁押处"
 
 [node name="hotspot_guideboard" type="Button" parent="HotspotLayer" unique_id=1215558996]

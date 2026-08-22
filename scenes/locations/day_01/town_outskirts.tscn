@@ -92,6 +92,7 @@ offset_right = 1140.2544
 offset_bottom = 687.04346
 script = ExtResource("2_hotspot")
 hotspot_id = &"enter_town"
+destination_location_id = &"translator_room"
 display_label = "进入 Santa Lucia"
 visual_asset_id = null
 visual_region = null

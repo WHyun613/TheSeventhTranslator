@@ -293,6 +293,7 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_hmvh2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_bwskk")
 script = ExtResource("2_hotspot")
 hotspot_id = &"translator_desk"
+destination_location_id = &"translator_desk"
 display_label = "查看译者桌"
 
 [node name="hotspot_drawer" type="Button" parent="HotspotLayer" unique_id=489027831]
@@ -328,4 +329,5 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_8dcdh")
 theme_override_styles/focus = SubResource("StyleBoxFlat_awyxr")
 script = ExtResource("2_hotspot")
 hotspot_id = &"exit_to_street"
+destination_location_id = &"day02_street"
 display_label = "前往小镇街道"

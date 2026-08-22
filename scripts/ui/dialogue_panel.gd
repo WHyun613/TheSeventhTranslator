@@ -15,6 +15,8 @@ var _text_label: RichTextLabel
 var _continue_button: Button
 var _raw_text := ""
 var _hover_translation := ""
+var _fade_tween: Tween
+var _playing := false
 
 
 func _ready() -> void:
@@ -57,12 +59,22 @@ func _build_ui() -> void:
 
 
 func play(lines: Array, characters_per_second: float = 52.0) -> void:
+	if _fade_tween != null and _fade_tween.is_valid():
+		_fade_tween.kill()
 	_lines = lines
 	_characters_per_second = maxf(characters_per_second, 12.0)
 	_index = -1
+	_playing = true
+	modulate.a = 0.0
 	visible = true
+	_fade_tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	_fade_tween.tween_property(self, "modulate:a", 1.0, 0.18)
 	set_process(true)
 	_advance()
+
+
+func is_playing() -> bool:
+	return _playing
 
 
 func _advance() -> void:
@@ -74,9 +86,14 @@ func _advance() -> void:
 
 	_index += 1
 	if _index >= _lines.size():
-		visible = false
+		_playing = false
 		set_process(false)
 		finished.emit()
+		if _fade_tween != null and _fade_tween.is_valid():
+			_fade_tween.kill()
+		_fade_tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+		_fade_tween.tween_property(self, "modulate:a", 0.0, 0.16)
+		_fade_tween.finished.connect(func() -> void: visible = false)
 		return
 
 	var line := _lines[_index] as Dictionary

@@ -176,16 +176,17 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_ex1km")
 text = "返回街道"
 script = ExtResource("2")
 hotspot_id = &"to_street"
+destination_location_id = &"day02_street"
 visual_asset_id = &"prop_day02_return_to_street"
 visual_region = Rect2(1563, 754, 669, 710)
 display_label = "返回街道"
 
 [node name="hotspot_to_archive" type="Button" parent="HotspotLayer" unique_id=1368690728]
 layout_mode = 0
-offset_left = 1480.0
-offset_top = 220.0
-offset_right = 1900.0
-offset_bottom = 950.0
+offset_left = 413.0
+offset_top = 439.0
+offset_right = 652.0
+offset_bottom = 772.0
 tooltip_text = "前往档案室"
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_5ijkt")
@@ -196,4 +197,5 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_galbe")
 text = "前往档案室"
 script = ExtResource("2")
 hotspot_id = &"to_archive_entrance"
+destination_location_id = &"day02_archive_entrance"
 display_label = "前往档案室"

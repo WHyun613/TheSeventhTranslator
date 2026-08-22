@@ -6,10 +6,43 @@ extends Button
 @export var display_label := "可交互物品"
 @export var visual_asset_id: StringName
 @export var visual_region := Rect2()
+@export var destination_location_id: StringName
+
+var _feedback_tween: Tween
+var _press_origin_position := Vector2.ZERO
 
 
 func _ready() -> void:
 	focus_mode = Control.FOCUS_ALL
+	button_down.connect(_play_press_feedback)
+	button_up.connect(_play_release_feedback)
+	resized.connect(_refresh_pivot)
+	_refresh_pivot.call_deferred()
+
+
+func _refresh_pivot() -> void:
+	pivot_offset = size * 0.5
+
+
+func _play_press_feedback() -> void:
+	if _feedback_tween != null and _feedback_tween.is_valid():
+		_feedback_tween.kill()
+	_press_origin_position = position
+	_feedback_tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	_feedback_tween.tween_property(self, "scale", Vector2(0.96, 0.96), 0.08)
+	_feedback_tween.tween_property(self, "position", _press_origin_position + Vector2(0.0, 4.0), 0.08)
+	_feedback_tween.tween_property(self, "self_modulate", Color(1.2, 1.2, 1.2, 1.0), 0.08)
+
+
+func _play_release_feedback() -> void:
+	if _feedback_tween != null and _feedback_tween.is_valid():
+		_feedback_tween.kill()
+	_feedback_tween = create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	_feedback_tween.set_parallel(true)
+	_feedback_tween.tween_property(self, "scale", Vector2(1.045, 1.045), 0.09)
+	_feedback_tween.tween_property(self, "position", _press_origin_position, 0.09)
+	_feedback_tween.tween_property(self, "self_modulate", Color.WHITE, 0.09)
+	_feedback_tween.chain().tween_property(self, "scale", Vector2.ONE, 0.10)
 
 
 func configure(has_background: bool, visual_texture: Texture2D = null) -> void:

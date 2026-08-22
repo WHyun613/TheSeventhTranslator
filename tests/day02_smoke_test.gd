@@ -17,7 +17,7 @@ func _check(condition: bool, message: String) -> void:
 
 func _finish_dialogues(main: Node) -> void:
 	var safety := 0
-	while main._dialogue.visible and safety < 100:
+	while main._dialogue.is_playing() and safety < 100:
 		main._dialogue._advance()
 		safety += 1
 	_check(safety < 100, "对白没有在安全步数内结束。")
@@ -65,6 +65,7 @@ func _run() -> void:
 	_check(main._current_location_view.hotspot_by_id("cloth_bag").icon != null, "破布袋没有显示场景图片。")
 
 	main._current_location_view.hotspot_by_id("boy_drawing").pressed.emit()
+	_check(main._interaction_effects.pickup_effect_count >= 1, "点击拾取物品后没有启动飞入背包动画。")
 	_check(main._document_viewer._content_grid.columns == 1, "小男孩的画没有切换为大图加下方说明布局。")
 	_check(main._document_viewer._art_panel.custom_minimum_size.x >= 900.0, "小男孩的画详情图没有占据文档主体宽度。")
 	_check(main._document_viewer._body_label.visible, "小男孩的画下方说明文字被隐藏。")
@@ -75,6 +76,7 @@ func _run() -> void:
 	_check(main.state.has_item("item_day02_wallet"), "没有取得 Marina 的钱包。")
 
 	main._current_location_view.hotspot_by_id("to_woods").pressed.emit()
+	_check(main._interaction_effects.scene_transition_count >= 1, "地点切换后没有启动从左到右的翻页擦除动画。")
 	var return_to_street: SceneHotspot = main._current_location_view.hotspot_by_id("to_street")
 	_check(return_to_street.icon != null, "树林中返回街道的场景物品没有显示 IMG_0289 资产。")
 	_check(return_to_street.position.x >= 1000.0 and return_to_street.position.y >= 700.0, "返回街道的场景物品没有移动到画面下方红框位置。")

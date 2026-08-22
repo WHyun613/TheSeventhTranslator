@@ -28,13 +28,13 @@ func _run() -> void:
 	main._enter_town()
 	await process_frame
 	_capture("tomas_onboarding")
-	while main._dialogue.visible:
+	while main._dialogue.is_playing():
 		main._dialogue._advance()
 	await process_frame
 	_capture("player_objective_auto")
 	main._document_viewer._close()
 	await process_frame
-	while main._dialogue.visible:
+	while main._dialogue.is_playing():
 		main._dialogue._advance()
 	main._document_viewer._close()
 	await process_frame
@@ -66,7 +66,7 @@ func _run() -> void:
 	_capture("case_with_evidence")
 	main._case_review._select_verdict("QUESTION")
 	main._case_review._confirm_submit()
-	while main._dialogue.visible:
+	while main._dialogue.is_playing():
 		main._dialogue._advance()
 	await process_frame
 	_capture("day_summary")

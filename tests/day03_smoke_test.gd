@@ -17,7 +17,7 @@ func _check(condition: bool, message: String) -> void:
 
 func _finish_dialogues(main: Node) -> void:
 	var safety := 0
-	while main._dialogue.visible and safety < 120:
+	while main._dialogue.is_playing() and safety < 120:
 		main._dialogue._advance()
 		safety += 1
 	_check(safety < 120, "对白没有在安全步数内结束。")

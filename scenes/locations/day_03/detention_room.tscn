@@ -197,4 +197,5 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_finte")
 text = "返回街道"
 script = ExtResource("2_hotspot")
 hotspot_id = &"to_street"
+destination_location_id = &"day02_street"
 display_label = "返回街道"

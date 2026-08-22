@@ -16,7 +16,6 @@
 [ext_resource type="Texture2D" uid="uid://dg7bp8vismlwl" path="res://assets/items/day_2/IMG_0278.png" id="9_mprln"]
 [ext_resource type="Texture2D" uid="uid://br0rd34mgswjr" path="res://assets/items/day_2/IMG_0286.png" id="10_ia7w7"]
 [ext_resource type="Texture2D" uid="uid://bku3yprtld64s" path="res://assets/items/day_2/marina的钱包.png" id="11_15ism"]
-
 [ext_resource type="Texture2D" uid="uid://bdck52bnam3vr" path="res://assets/items/day_2/IMG_0289.png" id="12_day02_return_to_street"]
 [ext_resource type="Texture2D" uid="uid://8prbper3c86a" path="res://assets/items/day_02/《老人种植田地包含在国有土地内的图片》.png" id="13_day02_field_photo"]
 [ext_resource type="Texture2D" uid="uid://tr2n5kq5c5uq" path="res://assets/backgrounds/shared/路牌.png" id="14_day02_guideboard"]

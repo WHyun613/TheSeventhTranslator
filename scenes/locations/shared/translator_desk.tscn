@@ -279,6 +279,7 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_tfx6m")
 theme_override_styles/focus = SubResource("StyleBoxFlat_bvqef")
 script = ExtResource("2_hotspot")
 hotspot_id = &"translator_room"
+destination_location_id = &"translator_room"
 display_label = "返回译者房间"
 
 [node name="hotspot_camera" type="Button" parent="HotspotLayer"]

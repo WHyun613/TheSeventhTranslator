@@ -4,6 +4,7 @@ const AssetFrameScene := preload("res://scripts/ui/asset_frame.gd")
 const DialoguePanelScene := preload("res://scripts/ui/dialogue_panel.gd")
 const DocumentViewerScene := preload("res://scripts/ui/document_viewer.gd")
 const DictionaryTimelinePanelScene := preload("res://scripts/ui/dictionary_timeline_panel.gd")
+const InteractionEffectsScene := preload("res://scripts/ui/interaction_effects.gd")
 const InventoryPanelScene := preload("res://scripts/ui/inventory_panel.gd")
 const ReasoningBoardScene := preload("res://scripts/ui/reasoning_board.gd")
 const CaseReviewPanelScene := preload("res://scripts/ui/case_review_panel.gd")
@@ -45,6 +46,7 @@ var _inventory: InventoryPanel
 var _reasoning: ReasoningBoard
 var _case_review: CaseReviewPanel
 var _settings: SettingsPanel
+var _interaction_effects: InteractionEffects
 var _dialogue_blocker: ColorRect
 var _character_art_layer: Control
 var _character_portrait: TextureRect
@@ -58,6 +60,8 @@ var _dialogue_callback := Callable()
 var _drawer_document_chain := false
 var _day02_intro_photo_chain := false
 var _selected_inventory_item_id := ""
+var _active_hotspot_id := ""
+var _location_transition_in_progress := false
 
 
 func _ready() -> void:
@@ -426,6 +430,9 @@ func _build_overlays() -> void:
 	_dialogue.line_presented.connect(_on_dialogue_line_presented)
 	add_child(_dialogue)
 	_build_toast()
+	_interaction_effects = InteractionEffectsScene.new() as InteractionEffects
+	add_child(_interaction_effects)
+	_interaction_effects.configure(_inventory_button, content.ASSET_CATALOG)
 
 
 func _build_character_art_layer() -> void:
@@ -588,6 +595,14 @@ func _refresh_location() -> void:
 
 
 func _on_scene_hotspot_activated(hotspot_id: String) -> void:
+	if _location_transition_in_progress:
+		return
+	_active_hotspot_id = hotspot_id
+	if _current_location_view != null:
+		var hotspot := _current_location_view.hotspot_by_id(hotspot_id)
+		if hotspot != null and not hotspot.destination_location_id.is_empty():
+			_transition_to_location(String(hotspot.destination_location_id), hotspot_id)
+			return
 	if String(state.data.get("current_day", "day_01")) == "day_03":
 		_handle_day03_hotspot(hotspot_id)
 		return
@@ -606,8 +621,64 @@ func _on_scene_hotspot_activated(hotspot_id: String) -> void:
 		_: push_warning("未处理的场景热点：" + hotspot_id)
 
 
+func _transition_to_location(destination_location_id: String, exit_hotspot_id: String) -> void:
+	if _location_transition_in_progress or not _can_enter_location(destination_location_id):
+		return
+	_location_transition_in_progress = true
+	var previous_location_id := String(state.data.get("current_location", ""))
+	_interaction_effects.begin_scene_transition()
+	if _current_location_view != null:
+		await _current_location_view.move_camera_toward_hotspot(exit_hotspot_id)
+	await _interaction_effects.fade_scene_to_black()
+	_commit_location_change(destination_location_id, previous_location_id)
+	await _interaction_effects.fade_scene_from_black()
+	_location_transition_in_progress = false
+	_after_exit_arrival(destination_location_id, previous_location_id)
+
+
+func _can_enter_location(destination_location_id: String) -> bool:
+	if String(state.data.get("current_day", "day_01")) != "day_03" or destination_location_id != "day03_detention_room":
+		return true
+	if not bool(state.flag("day03_detention_route_unlocked", false)):
+		_toast("还不知道临时羁押处的具体位置。")
+		return false
+	if not state.has_item("item_day03_camera"):
+		_toast("需要先回译者桌取得记录相机。")
+		return false
+	return true
+
+
+func _commit_location_change(destination_location_id: String, previous_location_id: String) -> void:
+	var current_day := String(state.data.get("current_day", "day_01"))
+	state.data["current_location"] = destination_location_id
+	if current_day == "day_01":
+		state.data["checkpoint"] = "translator_room_arrival" if previous_location_id == "town_outskirts" and destination_location_id == "translator_room" else destination_location_id
+	else:
+		state.data["checkpoint"] = current_day + "_" + destination_location_id
+	_auto_save()
+	_refresh_location()
+
+
+func _after_exit_arrival(destination_location_id: String, previous_location_id: String) -> void:
+	var current_day := String(state.data.get("current_day", "day_01"))
+	if current_day == "day_01":
+		if previous_location_id == "town_outskirts" and destination_location_id == "translator_room" and not bool(state.flag("day01_onboarding_complete", false)):
+			_start_onboarding()
+		return
+	if current_day == "day_02":
+		if destination_location_id == "day02_street":
+			_trigger_day02_street_events()
+		return
+	if current_day == "day_03":
+		if destination_location_id == "day02_street":
+			_trigger_day03_street_event()
+		elif destination_location_id == "day03_detention_room":
+			_trigger_day03_detention_event()
+
+
 func _update_topbar() -> void:
 	_inventory_button.disabled = (state.data["inventory"] as Array).is_empty()
+	_update_inventory_button_text()
 	var current_day := String(state.data.get("current_day", "day_01"))
 	_day_label.text = "第 3 天" if current_day == "day_03" else "第 2 天" if current_day == "day_02" else "第 1 天"
 	if _current_location_view == null:
@@ -756,7 +827,21 @@ func _on_inventory_item_requested(item_id: String) -> void:
 func _update_inventory_button_text() -> void:
 	if _inventory_button == null:
 		return
-	_inventory_button.text = "物品栏（相机）" if _selected_inventory_item_id == "item_day03_camera" else "物品栏"
+	var item_count := (state.data.get("inventory", []) as Array).size()
+	_inventory_button.text = "物品栏（相机）· %d" % item_count if _selected_inventory_item_id == "item_day03_camera" else "物品栏 · %d" % item_count
+
+
+func _animate_hotspot_pickup(item_id: String, hotspot_id := "") -> void:
+	if _interaction_effects == null or _current_location_view == null:
+		return
+	var resolved_hotspot_id := hotspot_id if not hotspot_id.is_empty() else _active_hotspot_id
+	var source := _current_location_view.hotspot_by_id(resolved_hotspot_id)
+	if source == null:
+		return
+	var definition := content.item(item_id)
+	var texture := content.asset_texture(String(definition.get("asset_id", "")))
+	_interaction_effects.play_pickup(source, texture)
+	_update_inventory_button_text()
 
 
 func _open_document(document_id: String) -> void:
@@ -926,6 +1011,7 @@ func _open_drawer() -> void:
 	state.set_flag("drawer_opened")
 	state.add_item("item_day01_old_text")
 	state.add_item("item_day01_marina_note")
+	_animate_hotspot_pickup("item_day01_marina_note", "drawer")
 	state.data["checkpoint"] = "drawer_opened"
 	_auto_save()
 	_refresh_location()
@@ -1127,6 +1213,7 @@ func _take_day02_item(item_id: String, message: String) -> void:
 	if not state.add_item(item_id):
 		_toast("这件材料已经在物品栏里。")
 		return
+	_animate_hotspot_pickup(item_id)
 	state.data["checkpoint"] = "day02_item_" + item_id
 	_auto_save()
 	_refresh_location()
@@ -1327,6 +1414,7 @@ func _take_day03_camera() -> void:
 	if not state.add_item("item_day03_camera"):
 		_toast("记录相机已经在物品栏中。")
 		return
+	_animate_hotspot_pickup("item_day03_camera", "camera")
 	state.set_flag("day03_camera_taken")
 	state.data["checkpoint"] = "day03_camera_taken"
 	_auto_save()
